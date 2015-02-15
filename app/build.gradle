@@ -1,0 +1,31 @@
+apply from: 'javafx.plugin'
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //Common
+    compile project(':common')
+
+    //Networking, Parsing
+    compile 'org.apache.httpcomponents:httpclient:4.4-beta1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.0'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.5.0'
+    compile 'org.jsoup:jsoup:1.7+'
+    compile 'net.sourceforge.htmlunit:htmlunit:2.15+'
+
+    //UI
+    compile 'org.controlsfx:controlsfx:8.20.8'
+    compile 'de.jensd:fontawesomefx:8.0.13'
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+javafx {
+    mainClass = 'com.voodooloo.bsmart.App'
+} 

@@ -1,20 +1,19 @@
 package com.voodooloo.bsmart.ui;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioData;
+import de.jensd.fx.fontawesome.AwesomeDude;
+import de.jensd.fx.fontawesome.AwesomeIcon;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.controlsfx.control.ButtonBar;
 import org.controlsfx.control.action.Action;
@@ -24,48 +23,54 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import javax.inject.Inject;
-import java.util.HashMap;
 
-public class AppController implements Controller {
+public class OverviewController implements Controller {
     final App app;
-    final HashMap<Tab, Controller> loadedControllers;
     final PortfolioData portfolioDAO;
 
-    final PortfolioControllerFactory portfolioControllerFactory;
-
     BorderPane rootBorderPane;
-    TabPane tabPane;
 
     @Inject
-    public AppController(App app) {
+    public OverviewController(App app) {
         this.app = app;
-        loadedControllers = new HashMap<>();
         portfolioDAO = app.get(PortfolioData.class);
-        portfolioControllerFactory = app.get(PortfolioControllerFactory.class);
     }
 
-    @Override
     public void load() {
         app.bus().register(this);
 
-        Tab overviewTab = new Tab();
-        overviewTab.setText("Overview");
+        Text title = new Text("Overview");
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        tabPane = new TabPane();
-        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        tabPane.getTabs().addAll(overviewTab);
+        Button addButton = new Button();
+        AwesomeDude.setIcon(addButton, AwesomeIcon.PLUS);
+        addButton.setOnAction(this::onAdd);
 
-        tabPane.getSelectionModel().clearSelection();
-        tabPane.getSelectionModel().selectedItemProperty().addListener(this::onTabSelected);
-        tabPane.getSelectionModel().selectFirst();
+        Region flexibleSpace = new Region();
+        HBox.setHgrow(flexibleSpace, Priority.ALWAYS);
+        HBox header = new HBox(title, flexibleSpace, addButton);
+
+//        summary = new Text();
+//        VBox info = new VBox(title, summary);
+//
+//        total = new Text("$123,000");
+//        total.setFont(Font.font("Arial", 20));
+//
+//        Pane flexibleSpace = new Pane();
+//        HBox.setHgrow(flexibleSpace, Priority.ALWAYS);
+//        HBox header = new HBox(info, flexibleSpace, total);
+//
+//        TableColumn<Portfolio, String> nameColumn = new TableColumn<>("Name");
+//        nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().name));
+//
+//        TableView<Portfolio> table = new TableView<>();
+//        table.getColumns().addAll(nameColumn);
+//        table.setItems(portfolios);
+//
+//        vBox = new VBox(header, table);
 
         rootBorderPane = new BorderPane();
-        rootBorderPane.setCenter(tabPane);
-    }
-
-    @Override
-    public void unload() {
-        app.bus().unregister(this);
+        rootBorderPane.setTop(header);
     }
 
     @Override
@@ -73,21 +78,9 @@ public class AppController implements Controller {
         return rootBorderPane;
     }
 
-    void onTabSelected(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-        Controller oldController = loadedControllers.get(oldValue);
-        if (oldController != null) {
-            oldController.unload();
-        }
-
-        Controller newController = loadedControllers.get(newValue);
-        if (newController == null) {
-            Portfolio portfolio = (Portfolio)newValue.getUserData();
-            newController = portfolio == null ? app.get(OverviewController.class) : portfolioControllerFactory.create(portfolio);
-            loadedControllers.put(newValue, newController);
-        }
-
-        newController.load();
-        newValue.setContent(newController.node());
+    @Override
+    public void unload() {
+        app.bus().unregister(this);
     }
 
     void onAdd(ActionEvent event) {
@@ -129,23 +122,6 @@ public class AppController implements Controller {
         Action response = dialog.show();
         if (response == saveAction) {
             portfolioDAO.insert(builder.build());
-        }
-    }
-
-    @Subscribe
-    public void onEvent(PortfolioData.Event event) {
-        ObservableList<Tab> tabs = tabPane.getTabs();
-        if (tabs.size() > 1) {
-            tabs.remove(1, tabs.size());
-        }
-
-        ImmutableList<Portfolio> portfolios = portfolioDAO.findAll();
-        for (Portfolio porfolio : portfolios) {
-            Tab tab = new Tab();
-            tab.setText(porfolio.name);
-            tab.setContent(new Text(porfolio.name + " content"));
-            tab.setUserData(porfolio);
-            tabs.add(tab);
         }
     }
 }

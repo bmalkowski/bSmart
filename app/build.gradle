@@ -9,6 +9,9 @@ dependencies {
     //Common
     compile project(':common')
 
+    //Utils
+    compile 'com.google.auto.factory:auto-factory:0.1-beta1'
+
     //Networking, Parsing
     compile 'org.apache.httpcomponents:httpclient:4.4-beta1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.0'

@@ -2,16 +2,15 @@ package com.voodooloo.bsmart;
 
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
+import dagger.ObjectGraph;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.h2.jdbcx.JdbcDataSource;
-import org.jooq.Configuration;
 import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
+
+import javax.inject.Inject;
 
 public class App extends Application {
 //    final Injector injector;
@@ -21,20 +20,32 @@ public class App extends Application {
 
 //    MasterDetailsController rootController;
 
-    final AppController appController;
+    final ObjectGraph objectGraph;
+
+    @Inject
+    AppController appController;
+
+    @Inject
+    DSLContext context;
+
+    @Inject
+    EventBus bus;
+
+    public EventBus bus() {
+        return bus;
+    }
+
+    public DSLContext context() {
+        return context;
+    }
+
+    public <T> T get(Class<T> type) {
+        return objectGraph.get(type);
+    }
 
     public App() {
-//        injector = Guice.createInjector(new Module());
-//        injector.injectMembers(this);
-
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:ismart;DB_CLOSE_DELAY=-1");
-
-        Configuration configuration = new DefaultConfiguration().set(dataSource).set(SQLDialect.H2);
-        DSLContext context = DSL.using(configuration);
-        EventBus bus = new EventBus();
-
-        appController = new AppController(context, bus);
+        objectGraph = ObjectGraph.create(new DataModule(), new AppModule(this));
+        objectGraph.inject(this);
 
 //        Configuration configuration = new DefaultConfiguration().set(dataSource).set(SQLDialect.H2);
 //        DSLContext context = DSL.using(configuration);
@@ -77,11 +88,18 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        appController.load();
         Scene scene = new Scene((Parent)appController.node(), 800, 600);
 
         primaryStage.setTitle("bSmart");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        appController.unload();
     }
 
     public static void main(String[] args) {
@@ -90,7 +108,7 @@ public class App extends Application {
 
         Builder builder = new Builder(dataSource);
         builder.buildDatabase();
-        
+
         launch(args);
     }
 }

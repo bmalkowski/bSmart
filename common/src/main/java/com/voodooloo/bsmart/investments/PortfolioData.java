@@ -5,13 +5,16 @@ import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord;
 import org.jooq.DSLContext;
 
+import javax.inject.Inject;
+
 import static com.voodooloo.bsmart.generated.Tables.PORTFOLIOS;
 
-public class PortfolioDAO {
+public class PortfolioData {
     final DSLContext context;
     final EventBus bus;
 
-    public PortfolioDAO(DSLContext context, EventBus bus) {
+    @Inject
+    public PortfolioData(DSLContext context, EventBus bus) {
         this.context = context;
         this.bus = bus;
     }

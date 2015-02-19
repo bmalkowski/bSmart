@@ -31,7 +31,7 @@ public class AppController implements Controller {
     final HashMap<Tab, Controller> loadedControllers;
     final PortfolioData portfolioDAO;
 
-    final PortfolioControllerFactory portfolioControllerFactory;
+    final PortfolioController.Factory portfolioControllerFactory;
 
     BorderPane rootBorderPane;
     TabPane tabPane;
@@ -41,7 +41,7 @@ public class AppController implements Controller {
         this.app = app;
         loadedControllers = new HashMap<>();
         portfolioDAO = app.get(PortfolioData.class);
-        portfolioControllerFactory = app.get(PortfolioControllerFactory.class);
+        portfolioControllerFactory = app.get(PortfolioController.Factory.class);
     }
 
     @Override

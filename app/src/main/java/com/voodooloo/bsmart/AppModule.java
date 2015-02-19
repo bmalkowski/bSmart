@@ -3,7 +3,7 @@ package com.voodooloo.bsmart;
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.OverviewController;
-import com.voodooloo.bsmart.ui.PortfolioControllerFactory;
+import com.voodooloo.bsmart.ui.PortfolioController;
 import dagger.Module;
 import dagger.Provides;
 import org.h2.jdbcx.JdbcDataSource;
@@ -22,7 +22,7 @@ import javax.sql.DataSource;
         AppController.class,
         OverviewController.class,
 
-        PortfolioControllerFactory.class,
+        PortfolioController.Factory.class,
 }, addsTo = DataModule.class)
 public class AppModule {
     final App app;
@@ -48,7 +48,6 @@ public class AppModule {
     DSLContext provideDSLContext(DataSource dataSource) {
         Configuration configuration = new DefaultConfiguration().set(dataSource).set(SQLDialect.H2);
         return DSL.using(configuration);
-
     }
 
     @Singleton

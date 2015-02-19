@@ -1,7 +1,5 @@
 package com.voodooloo.bsmart.ui;
 
-import com.google.auto.factory.AutoFactory;
-import com.google.auto.factory.Provided;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioData;
@@ -13,7 +11,6 @@ import javafx.scene.text.Text;
 
 import javax.inject.Inject;
 
-@AutoFactory(className = "PortfolioControllerFactory")
 public class PortfolioController implements Controller {
     final App app;
     final PortfolioData portfolioDAO;
@@ -21,8 +18,7 @@ public class PortfolioController implements Controller {
 
     BorderPane rootBorderPane;
 
-    @Inject
-    public PortfolioController(@Provided App app, Portfolio portfolio) {
+    public PortfolioController(App app, Portfolio portfolio) {
         this.app = app;
         this.portfolio = portfolio;
         portfolioDAO = app.get(PortfolioData.class);
@@ -46,5 +42,18 @@ public class PortfolioController implements Controller {
     @Override
     public void unload() {
         app.bus().unregister(this);
+    }
+
+    public static class Factory {
+        final App app;
+
+        @Inject
+        public Factory(App app) {
+            this.app = app;
+        }
+
+        public PortfolioController create(Portfolio portfolio) {
+            return new PortfolioController(app, portfolio);
+        }
     }
 }

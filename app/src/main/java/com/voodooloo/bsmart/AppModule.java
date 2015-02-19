@@ -2,8 +2,8 @@ package com.voodooloo.bsmart;
 
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
+import com.voodooloo.bsmart.ui.ControllerFactory;
 import com.voodooloo.bsmart.ui.OverviewController;
-import com.voodooloo.bsmart.ui.PortfolioController;
 import dagger.Module;
 import dagger.Provides;
 import org.h2.jdbcx.JdbcDataSource;
@@ -22,7 +22,7 @@ import javax.sql.DataSource;
         AppController.class,
         OverviewController.class,
 
-        PortfolioController.Factory.class,
+        ControllerFactory.class,
 }, addsTo = DataModule.class)
 public class AppModule {
     final App app;

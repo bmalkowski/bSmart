@@ -1,5 +1,7 @@
 package com.voodooloo.bsmart.ui;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioData;
@@ -26,14 +28,15 @@ import javax.inject.Inject;
 
 public class OverviewController implements Controller {
     final App app;
-    final PortfolioData portfolioDAO;
+    final PortfolioData portfolioData;
 
     BorderPane rootBorderPane;
+    GridPane gridPane;
 
     @Inject
-    public OverviewController(App app) {
+    public OverviewController(App app, PortfolioData portfolioData) {
         this.app = app;
-        portfolioDAO = app.get(PortfolioData.class);
+        this.portfolioData = portfolioData;
     }
 
     public void load() {
@@ -50,27 +53,28 @@ public class OverviewController implements Controller {
         HBox.setHgrow(flexibleSpace, Priority.ALWAYS);
         HBox header = new HBox(title, flexibleSpace, addButton);
 
-//        summary = new Text();
-//        VBox info = new VBox(title, summary);
-//
-//        total = new Text("$123,000");
-//        total.setFont(Font.font("Arial", 20));
-//
-//        Pane flexibleSpace = new Pane();
-//        HBox.setHgrow(flexibleSpace, Priority.ALWAYS);
-//        HBox header = new HBox(info, flexibleSpace, total);
-//
-//        TableColumn<Portfolio, String> nameColumn = new TableColumn<>("Name");
-//        nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().name));
-//
-//        TableView<Portfolio> table = new TableView<>();
-//        table.getColumns().addAll(nameColumn);
-//        table.setItems(portfolios);
-//
-//        vBox = new VBox(header, table);
+        gridPane = new GridPane();
 
         rootBorderPane = new BorderPane();
         rootBorderPane.setTop(header);
+        rootBorderPane.setCenter(gridPane);
+    }
+
+    void rebuildGrid() {
+        gridPane.getChildren().removeAll();
+        gridPane.add(new Text("Name"), 0, 0);
+        gridPane.add(new Text("Total"), 1, 0);
+
+        int i;
+        ImmutableList<Portfolio> portfolios = portfolioData.findAll();
+        for (i = 0; i < portfolios.size(); i++ ) {
+            Portfolio portfolio = portfolios.get(i);
+            gridPane.add(new Text(portfolio.name), 0, i + 1);
+            gridPane.add(new Text("$100"), 1, i + 1);
+        }
+
+        gridPane.add(new Text("Grand Total"), 0, i + 1);
+        gridPane.add(new Text("$200"), 1, i + 1);
     }
 
     @Override
@@ -121,7 +125,12 @@ public class OverviewController implements Controller {
 
         Action response = dialog.show();
         if (response == saveAction) {
-            portfolioDAO.insert(builder.build());
+            portfolioData.insert(builder.build());
         }
+    }
+
+    @Subscribe
+    public void onEvent(PortfolioData.Event event) {
+        rebuildGrid();
     }
 }

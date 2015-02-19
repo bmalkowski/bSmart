@@ -39,10 +39,6 @@ public class App extends Application {
         return context;
     }
 
-    public <T> T get(Class<T> type) {
-        return objectGraph.get(type);
-    }
-
     public App() {
         objectGraph = ObjectGraph.create(new DataModule(), new AppModule(this));
         objectGraph.inject(this);

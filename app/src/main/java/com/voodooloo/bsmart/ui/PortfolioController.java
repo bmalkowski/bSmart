@@ -9,19 +9,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import javax.inject.Inject;
-
 public class PortfolioController implements Controller {
     final App app;
-    final PortfolioData portfolioDAO;
+    final PortfolioData portfolioData;
     final Portfolio portfolio;
 
     BorderPane rootBorderPane;
 
-    public PortfolioController(App app, Portfolio portfolio) {
+    public PortfolioController(App app, PortfolioData portfolioData, Portfolio portfolio) {
         this.app = app;
+        this.portfolioData = portfolioData;
         this.portfolio = portfolio;
-        portfolioDAO = app.get(PortfolioData.class);
     }
 
     public void load() {
@@ -42,18 +40,5 @@ public class PortfolioController implements Controller {
     @Override
     public void unload() {
         app.bus().unregister(this);
-    }
-
-    public static class Factory {
-        final App app;
-
-        @Inject
-        public Factory(App app) {
-            this.app = app;
-        }
-
-        public PortfolioController create(Portfolio portfolio) {
-            return new PortfolioController(app, portfolio);
-        }
     }
 }

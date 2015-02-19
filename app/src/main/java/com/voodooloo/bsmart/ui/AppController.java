@@ -28,20 +28,19 @@ import java.util.HashMap;
 
 public class AppController implements Controller {
     final App app;
+    final PortfolioData portfolioData;
+    final ControllerFactory controllerFactory;
     final HashMap<Tab, Controller> loadedControllers;
-    final PortfolioData portfolioDAO;
-
-    final PortfolioController.Factory portfolioControllerFactory;
 
     BorderPane rootBorderPane;
     TabPane tabPane;
 
     @Inject
-    public AppController(App app) {
+    public AppController(App app, PortfolioData portfolioData, ControllerFactory controllerFactory) {
         this.app = app;
+        this.portfolioData = portfolioData;
+        this.controllerFactory = controllerFactory;
         loadedControllers = new HashMap<>();
-        portfolioDAO = app.get(PortfolioData.class);
-        portfolioControllerFactory = app.get(PortfolioController.Factory.class);
     }
 
     @Override
@@ -82,7 +81,9 @@ public class AppController implements Controller {
         Controller newController = loadedControllers.get(newValue);
         if (newController == null) {
             Portfolio portfolio = (Portfolio)newValue.getUserData();
-            newController = portfolio == null ? app.get(OverviewController.class) : portfolioControllerFactory.create(portfolio);
+            newController = portfolio == null ?
+                    controllerFactory.overviewController() :
+                    controllerFactory.portfolioController(portfolio);
             loadedControllers.put(newValue, newController);
         }
 
@@ -128,7 +129,7 @@ public class AppController implements Controller {
 
         Action response = dialog.show();
         if (response == saveAction) {
-            portfolioDAO.insert(builder.build());
+            portfolioData.insert(builder.build());
         }
     }
 
@@ -139,7 +140,7 @@ public class AppController implements Controller {
             tabs.remove(1, tabs.size());
         }
 
-        ImmutableList<Portfolio> portfolios = portfolioDAO.findAll();
+        ImmutableList<Portfolio> portfolios = portfolioData.findAll();
         for (Portfolio porfolio : portfolios) {
             Tab tab = new Tab();
             tab.setText(porfolio.name);

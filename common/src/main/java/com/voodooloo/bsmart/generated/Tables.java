@@ -3,9 +3,6 @@
  */
 package com.voodooloo.bsmart.generated;
 
-import com.voodooloo.bsmart.generated.tables.Portfolios;
-import com.voodooloo.bsmart.generated.tables.SchemaVersion;
-
 /**
  * Convenience access to all tables in PUBLIC
  */
@@ -22,10 +19,15 @@ public class Tables {
 	/**
 	 * The table PUBLIC.schema_version
 	 */
-	public static final SchemaVersion SCHEMA_VERSION = SchemaVersion.SCHEMA_VERSION;
+	public static final com.voodooloo.bsmart.generated.tables.SchemaVersion SCHEMA_VERSION = com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION;
 
 	/**
 	 * The table PUBLIC.PORTFOLIOS
 	 */
-	public static final Portfolios PORTFOLIOS = Portfolios.PORTFOLIOS;
+	public static final com.voodooloo.bsmart.generated.tables.Portfolios PORTFOLIOS = com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS;
+
+	/**
+	 * The table PUBLIC.ACCOUNTS
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Accounts ACCOUNTS = com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS;
 }

@@ -42,7 +42,7 @@ public class Builder {
                                                                  .withInputSchema("PUBLIC"))
                                            .withTarget(new Target()
                                                                .withPackageName(getClass().getPackage().getName() + ".generated")
-                                                               .withDirectory("common/src/main/java")));
+                                                               .withDirectory("src/main/java")));
 
             GenerationTool tool = new GenerationTool();
             tool.setConnection(connection);

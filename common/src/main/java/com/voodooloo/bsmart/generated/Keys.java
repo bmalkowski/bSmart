@@ -3,11 +3,6 @@
  */
 package com.voodooloo.bsmart.generated;
 
-import com.voodooloo.bsmart.generated.tables.Portfolios;
-import com.voodooloo.bsmart.generated.tables.SchemaVersion;
-import com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord;
-import com.voodooloo.bsmart.generated.tables.records.SchemaVersionRecord;
-
 /**
  * A class modelling foreign key relationships between tables of the <code>PUBLIC</code> 
  * schema
@@ -26,14 +21,16 @@ public class Keys {
 	// IDENTITY definitions
 	// -------------------------------------------------------------------------
 
-	public static final org.jooq.Identity<PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = Identities0.IDENTITY_PORTFOLIOS;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = Identities0.IDENTITY_PORTFOLIOS;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountsRecord, java.lang.Integer> IDENTITY_ACCOUNTS = Identities0.IDENTITY_ACCOUNTS;
 
 	// -------------------------------------------------------------------------
 	// UNIQUE and PRIMARY KEY definitions
 	// -------------------------------------------------------------------------
 
-	public static final org.jooq.UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = UniqueKeys0.SCHEMA_VERSION_PK;
-	public static final org.jooq.UniqueKey<PortfoliosRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.SchemaVersionRecord> SCHEMA_VERSION_PK = UniqueKeys0.SCHEMA_VERSION_PK;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountsRecord> CONSTRAINT_A = UniqueKeys0.CONSTRAINT_A;
 
 	// -------------------------------------------------------------------------
 	// FOREIGN KEY definitions
@@ -45,11 +42,13 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
-		public static org.jooq.Identity<PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = createIdentity(Portfolios.PORTFOLIOS, Portfolios.PORTFOLIOS.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = createIdentity(com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS, com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountsRecord, java.lang.Integer> IDENTITY_ACCOUNTS = createIdentity(com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS, com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS.ID);
 	}
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
-		public static final org.jooq.UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = createUniqueKey(SchemaVersion.SCHEMA_VERSION, SchemaVersion.SCHEMA_VERSION.VERSION);
-		public static final org.jooq.UniqueKey<PortfoliosRecord> CONSTRAINT_3 = createUniqueKey(Portfolios.PORTFOLIOS, Portfolios.PORTFOLIOS.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.SchemaVersionRecord> SCHEMA_VERSION_PK = createUniqueKey(com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION, com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION.VERSION);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord> CONSTRAINT_3 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS, com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountsRecord> CONSTRAINT_A = createUniqueKey(com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS, com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS.ID);
 	}
 }

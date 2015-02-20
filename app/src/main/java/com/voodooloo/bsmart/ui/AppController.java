@@ -82,7 +82,7 @@ public class AppController implements Controller {
         if (newController == null) {
             Portfolio portfolio = (Portfolio)newValue.getUserData();
             newController = portfolio == null ?
-                    controllerFactory.overviewController() :
+                    controllerFactory.investmentsController() :
                     controllerFactory.portfolioController(portfolio);
             loadedControllers.put(newValue, newController);
         }

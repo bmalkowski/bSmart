@@ -1,12 +1,12 @@
 package com.voodooloo.bsmart;
 
-import com.voodooloo.bsmart.investments.AccountData;
-import com.voodooloo.bsmart.investments.PortfolioData;
+import com.voodooloo.bsmart.investments.AccountDAO;
+import com.voodooloo.bsmart.investments.PortfolioDAO;
 import dagger.Module;
 
 @Module(injects = {
-        PortfolioData.class,
-        AccountData.class,
+        PortfolioDAO.class,
+        AccountDAO.class,
 }, complete = false)
 public class DataModule {
 }

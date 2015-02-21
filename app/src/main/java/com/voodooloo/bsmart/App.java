@@ -13,13 +13,6 @@ import org.jooq.DSLContext;
 import javax.inject.Inject;
 
 public class App extends Application {
-//    final Injector injector;
-
-//    @Inject
-//    GuiceFXMLLoader loader;
-
-//    MasterDetailsController rootController;
-
     final ObjectGraph objectGraph;
 
     @Inject

@@ -9,26 +9,26 @@ import javax.inject.Inject;
 
 import static com.voodooloo.bsmart.generated.Tables.*;
 
-public class AccountData {
+public class PortfolioDAO {
     final DSLContext context;
     final EventBus bus;
 
     @Inject
-    public AccountData(DSLContext context, EventBus bus) {
+    public PortfolioDAO(DSLContext context, EventBus bus) {
         this.context = context;
         this.bus = bus;
     }
 
-    public void insert(Account account) {
-        context.insertInto(ACCOUNTS)
-               .set(ACCOUNTS.NAME, account.name)
+    public void insert(Portfolio portfolio) {
+        context.insertInto(PORTFOLIOS)
+               .set(PORTFOLIOS.NAME, portfolio.name)
                .execute();
         bus.post(Event.UPDATED);
     }
 
-    public ImmutableList<Account> findAll() {
+    public ImmutableList<Portfolio> findAll() {
         return ImmutableList.copyOf(
-                context.selectFrom(ACCOUNTS)
+                context.selectFrom(PORTFOLIOS)
                        .fetch()
                        .stream()
                        .map(this::convertFrom)
@@ -36,10 +36,10 @@ public class AccountData {
         );
     }
 
-    Account convertFrom(AccountsRecord record) {
-        return new Account.Builder().id(record.getId())
-                                    .name(record.getName())
-                                    .build();
+    Portfolio convertFrom(PortfoliosRecord record) {
+        return new Portfolio.Builder().id(record.getId())
+                                      .name(record.getName())
+                                      .build();
     }
 
     public static enum Event {

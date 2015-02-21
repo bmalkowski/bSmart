@@ -5,6 +5,10 @@ import com.google.common.collect.ImmutableList;
 public class Account {
     public final Integer id;
     public final String name;
+
+    //firm
+    //type (ira, taxable, etc)
+
     public final ImmutableList<Fund> funds;
 
     private Account(Builder builder) {

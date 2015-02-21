@@ -1,10 +1,11 @@
-package com.voodooloo.bsmart.ui;
+package com.voodooloo.bsmart.ui.investments;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.App;
-import com.voodooloo.bsmart.investments.Portfolio;
-import com.voodooloo.bsmart.investments.PortfolioData;
+import com.voodooloo.bsmart.investments.Account;
+import com.voodooloo.bsmart.investments.AccountDAO;
+import com.voodooloo.bsmart.investments.Fund;
+import com.voodooloo.bsmart.ui.Controller;
 import de.jensd.fx.fontawesome.AwesomeDude;
 import de.jensd.fx.fontawesome.AwesomeIcon;
 import javafx.beans.value.ChangeListener;
@@ -26,26 +27,26 @@ import org.controlsfx.validation.Validator;
 
 import javax.inject.Inject;
 
-public class OverviewController implements Controller {
+public class InvestmentsController implements Controller {
     final App app;
-    final PortfolioData portfolioData;
+    final AccountDAO accountDAO;
 
     BorderPane rootBorderPane;
-    GridPane gridPane;
+    VBox accountsBox;
 
     @Inject
-    public OverviewController(App app, PortfolioData portfolioData) {
+    public InvestmentsController(App app, AccountDAO accountDAO) {
         this.app = app;
-        this.portfolioData = portfolioData;
+        this.accountDAO = accountDAO;
     }
 
     public void load() {
         app.bus().register(this);
 
-        Text title = new Text("Overview");
+        Text title = new Text("Investments");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        Button addButton = new Button("Add new portfolio");
+        Button addButton = new Button("Add new account");
         AwesomeDude.setIcon(addButton, AwesomeIcon.PLUS);
         addButton.setOnAction(this::onAdd);
 
@@ -53,29 +54,29 @@ public class OverviewController implements Controller {
         HBox.setHgrow(flexibleSpace, Priority.ALWAYS);
         HBox header = new HBox(title, flexibleSpace, addButton);
 
-        gridPane = new GridPane();
-        rebuildGrid();
+        accountsBox = new VBox();
+        rebuildAccounts();
 
         rootBorderPane = new BorderPane();
         rootBorderPane.setTop(header);
-        rootBorderPane.setCenter(gridPane);
+        rootBorderPane.setCenter(accountsBox);
     }
 
-    void rebuildGrid() {
-        gridPane.getChildren().clear();
-        gridPane.add(new Text("Name"), 0, 0);
-        gridPane.add(new Text("Total"), 1, 0);
+    void rebuildAccounts() {
+        accountsBox.getChildren().clear();
 
-        int i;
-        ImmutableList<Portfolio> portfolios = portfolioData.findAll();
-        for (i = 0; i < portfolios.size(); i++ ) {
-            Portfolio portfolio = portfolios.get(i);
-            gridPane.add(new Text(portfolio.name), 0, i + 1);
-            gridPane.add(new Text("$100"), 1, i + 1);
+        for (Account account : accountDAO.findAll()) {
+            GridPane gridPane = new GridPane();
+            accountsBox.getChildren().add(gridPane);
+
+            int row = 0;
+            gridPane.add(new Text(account.name), 0, row++, 1, 1);
+
+            gridPane.add(new Text("Funds"), 0, row++, 1, 1);
+            for (Fund fund : account.funds) {
+                gridPane.add(new Text(fund.symbol), 0, row++);
+            }
         }
-
-        gridPane.add(new Text("Grand Total"), 0, i + 1);
-        gridPane.add(new Text("$200"), 1, i + 1);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class OverviewController implements Controller {
     void onAdd(ActionEvent event) {
         Action saveAction = new DialogAction("Save", ButtonBar.ButtonType.OK_DONE);
         ValidationSupport validationSupport = new ValidationSupport();
-        Portfolio.Builder builder = new Portfolio.Builder();
+        Account.Builder builder = new Account.Builder();
 
         Text nameLabel = new Text("Name");
         TextField nameInput = new TextField();
@@ -126,12 +127,12 @@ public class OverviewController implements Controller {
 
         Action response = dialog.show();
         if (response == saveAction) {
-            portfolioData.insert(builder.build());
+            accountDAO.insert(builder.build());
         }
     }
 
     @Subscribe
-    public void onEvent(PortfolioData.Event event) {
-        rebuildGrid();
+    public void onEvent(AccountDAO.Event event) {
+        rebuildAccounts();
     }
 }

@@ -1,8 +1,9 @@
-package com.voodooloo.bsmart.ui;
+package com.voodooloo.bsmart.ui.portfolios;
 
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
-import com.voodooloo.bsmart.investments.PortfolioData;
+import com.voodooloo.bsmart.investments.PortfolioDAO;
+import com.voodooloo.bsmart.ui.Controller;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -11,14 +12,14 @@ import javafx.scene.text.Text;
 
 public class PortfolioController implements Controller {
     final App app;
-    final PortfolioData portfolioData;
+    final PortfolioDAO portfolioDAO;
     final Portfolio portfolio;
 
     BorderPane rootBorderPane;
 
-    public PortfolioController(App app, PortfolioData portfolioData, Portfolio portfolio) {
+    public PortfolioController(App app, PortfolioDAO portfolioDAO, Portfolio portfolio) {
         this.app = app;
-        this.portfolioData = portfolioData;
+        this.portfolioDAO = portfolioDAO;
         this.portfolio = portfolio;
     }
 

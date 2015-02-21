@@ -21,34 +21,61 @@ public class Keys {
 	// IDENTITY definitions
 	// -------------------------------------------------------------------------
 
-	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = Identities0.IDENTITY_PORTFOLIOS;
-	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountsRecord, java.lang.Integer> IDENTITY_ACCOUNTS = Identities0.IDENTITY_ACCOUNTS;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FirmRecord, java.lang.Integer> IDENTITY_FIRM = Identities0.IDENTITY_FIRM;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.Integer> IDENTITY_FUND = Identities0.IDENTITY_FUND;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord, java.lang.Integer> IDENTITY_PORTFOLIO = Identities0.IDENTITY_PORTFOLIO;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountRecord, java.lang.Integer> IDENTITY_ACCOUNT = Identities0.IDENTITY_ACCOUNT;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, java.lang.Integer> IDENTITY_INVESTMENT = Identities0.IDENTITY_INVESTMENT;
 
 	// -------------------------------------------------------------------------
 	// UNIQUE and PRIMARY KEY definitions
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.SchemaVersionRecord> SCHEMA_VERSION_PK = UniqueKeys0.SCHEMA_VERSION_PK;
-	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
-	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountsRecord> CONSTRAINT_A = UniqueKeys0.CONSTRAINT_A;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_2 = UniqueKeys0.CONSTRAINT_2;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord> CONSTRAINT_21 = UniqueKeys0.CONSTRAINT_21;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E = UniqueKeys0.CONSTRAINT_E;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_E4 = UniqueKeys0.CONSTRAINT_E4;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord> CONSTRAINT_F = UniqueKeys0.CONSTRAINT_F;
 
 	// -------------------------------------------------------------------------
 	// FOREIGN KEY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_E49 = ForeignKeys0.CONSTRAINT_E49;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_8F = ForeignKeys0.CONSTRAINT_8F;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, com.voodooloo.bsmart.generated.tables.records.FundRecord> CONSTRAINT_8FE = ForeignKeys0.CONSTRAINT_8FE;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord, com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_F3 = ForeignKeys0.CONSTRAINT_F3;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_F30 = ForeignKeys0.CONSTRAINT_F30;
 
 	// -------------------------------------------------------------------------
 	// [#1459] distribute members to avoid static initialisers > 64kb
 	// -------------------------------------------------------------------------
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
-		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord, java.lang.Integer> IDENTITY_PORTFOLIOS = createIdentity(com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS, com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS.ID);
-		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountsRecord, java.lang.Integer> IDENTITY_ACCOUNTS = createIdentity(com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS, com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FirmRecord, java.lang.Integer> IDENTITY_FIRM = createIdentity(com.voodooloo.bsmart.generated.tables.Firm.FIRM, com.voodooloo.bsmart.generated.tables.Firm.FIRM.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.Integer> IDENTITY_FUND = createIdentity(com.voodooloo.bsmart.generated.tables.Fund.FUND, com.voodooloo.bsmart.generated.tables.Fund.FUND.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord, java.lang.Integer> IDENTITY_PORTFOLIO = createIdentity(com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO, com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountRecord, java.lang.Integer> IDENTITY_ACCOUNT = createIdentity(com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, java.lang.Integer> IDENTITY_INVESTMENT = createIdentity(com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT.ID);
 	}
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.SchemaVersionRecord> SCHEMA_VERSION_PK = createUniqueKey(com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION, com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION.VERSION);
-		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfoliosRecord> CONSTRAINT_3 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS, com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS.ID);
-		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountsRecord> CONSTRAINT_A = createUniqueKey(com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS, com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_2 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Firm.FIRM, com.voodooloo.bsmart.generated.tables.Firm.FIRM.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord> CONSTRAINT_21 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Fund.FUND, com.voodooloo.bsmart.generated.tables.Fund.FUND.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E = createUniqueKey(com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO, com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_E4 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_8 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord> CONSTRAINT_F = createUniqueKey(com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT.PORTFOLIO_ID, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT.INVESTMENT_ID);
+	}
+
+	private static class ForeignKeys0 extends org.jooq.impl.AbstractKeys {
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_E49 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.FIRM_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_8F = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E4, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT.ACCOUNT_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.InvestmentRecord, com.voodooloo.bsmart.generated.tables.records.FundRecord> CONSTRAINT_8FE = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_21, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT, com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT.FUND_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord, com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_F3 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT.PORTFOLIO_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioInvestmentRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_F30 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_8, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT, com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT.INVESTMENT_ID);
 	}
 }

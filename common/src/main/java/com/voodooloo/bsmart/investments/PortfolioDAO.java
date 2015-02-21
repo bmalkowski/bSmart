@@ -20,15 +20,15 @@ public class PortfolioDAO {
     }
 
     public void insert(Portfolio portfolio) {
-        context.insertInto(PORTFOLIOS)
-               .set(PORTFOLIOS.NAME, portfolio.name)
+        context.insertInto(PORTFOLIO)
+               .set(PORTFOLIO.NAME, portfolio.name)
                .execute();
         bus.post(Event.UPDATED);
     }
 
     public ImmutableList<Portfolio> findAll() {
         return ImmutableList.copyOf(
-                context.selectFrom(PORTFOLIOS)
+                context.selectFrom(PORTFOLIO)
                        .fetch()
                        .stream()
                        .map(this::convertFrom)
@@ -36,7 +36,7 @@ public class PortfolioDAO {
         );
     }
 
-    Portfolio convertFrom(PortfoliosRecord record) {
+    Portfolio convertFrom(PortfolioRecord record) {
         return new Portfolio.Builder().id(record.getId())
                                       .name(record.getName())
                                       .build();

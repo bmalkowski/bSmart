@@ -30,7 +30,7 @@ public class PortfolioFactory {
         return new PortfoliosController(app, dao);
     }
 
-    public PortfolioController portfoliosController(Portfolio portfolio) {
+    public PortfolioController portfolioController(Portfolio portfolio) {
         return new PortfolioController(app, dao, portfolio);
     }
 

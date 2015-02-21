@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends org.jooq.impl.SchemaImpl {
 
-	private static final long serialVersionUID = -1530757884;
+	private static final long serialVersionUID = -1323397845;
 
 	/**
 	 * The reference instance of <code>PUBLIC</code>
@@ -39,8 +39,11 @@ public class Public extends org.jooq.impl.SchemaImpl {
 
 	private final java.util.List<org.jooq.Sequence<?>> getSequences0() {
 		return java.util.Arrays.<org.jooq.Sequence<?>>asList(
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_540DD274_4B12_4B2A_B526_80D216A692C8,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_69447303_32F8_4DDF_94CC_19C979E1BFB3);
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_0D63F833_3B85_4019_94CC_097D2B403ABB,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_52C699E5_4BBB_4E28_9E19_0B1F4BECBBCC,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_9451E713_6812_411E_ADE7_8455DD55DA9B,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_ACF5C7F5_2B02_4784_8D62_435634683C2D,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_B910F857_C4BC_4C94_8679_2B16E81C15AE);
 	}
 
 	@Override
@@ -53,7 +56,11 @@ public class Public extends org.jooq.impl.SchemaImpl {
 	private final java.util.List<org.jooq.Table<?>> getTables0() {
 		return java.util.Arrays.<org.jooq.Table<?>>asList(
 			com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION,
-			com.voodooloo.bsmart.generated.tables.Portfolios.PORTFOLIOS,
-			com.voodooloo.bsmart.generated.tables.Accounts.ACCOUNTS);
+			com.voodooloo.bsmart.generated.tables.Firm.FIRM,
+			com.voodooloo.bsmart.generated.tables.Fund.FUND,
+			com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO,
+			com.voodooloo.bsmart.generated.tables.Account.ACCOUNT,
+			com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT,
+			com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT);
 	}
 }

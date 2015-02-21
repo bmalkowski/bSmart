@@ -20,15 +20,15 @@ public class AccountDAO {
     }
 
     public void insert(Account account) {
-        context.insertInto(ACCOUNTS)
-               .set(ACCOUNTS.NAME, account.name)
+        context.insertInto(ACCOUNT)
+               .set(ACCOUNT.NAME, account.name)
                .execute();
         bus.post(Event.UPDATED);
     }
 
     public ImmutableList<Account> findAll() {
         return ImmutableList.copyOf(
-                context.selectFrom(ACCOUNTS)
+                context.selectFrom(ACCOUNT)
                        .fetch()
                        .stream()
                        .map(this::convertFrom)
@@ -36,7 +36,7 @@ public class AccountDAO {
         );
     }
 
-    Account convertFrom(AccountsRecord record) {
+    Account convertFrom(AccountRecord record) {
         return new Account.Builder().id(record.getId())
                                     .name(record.getName())
                                     .build();

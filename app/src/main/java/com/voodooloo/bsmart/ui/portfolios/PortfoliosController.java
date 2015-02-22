@@ -1,24 +1,24 @@
 package com.voodooloo.bsmart.ui.portfolios;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioDAO;
 import com.voodooloo.bsmart.ui.Controller;
+import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class PortfoliosController implements Controller {
     final App app;
     final PortfolioDAO portfolioDAO;
 
     BorderPane rootBorderPane;
-    GridPane gridPane;
+    TableView<Portfolio> portfolioTable;
 
     public PortfoliosController(App app, PortfolioDAO portfolioDAO) {
         this.app = app;
@@ -28,32 +28,25 @@ public class PortfoliosController implements Controller {
     public void load() {
         app.bus().register(this);
 
-        Text title = new Text("Overview");
-        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        TableColumn<Portfolio, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
 
-        gridPane = new GridPane();
-        populateGrid();
+        TableColumn<Portfolio, String> totalColumn = new TableColumn<>("Total");
+        totalColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
+
+        portfolioTable = new TableView<>();
+        portfolioTable.getColumns().add(nameColumn);
+        portfolioTable.getColumns().add(totalColumn);
+
+        updatePortfolios();
 
         rootBorderPane = new BorderPane();
-        rootBorderPane.setTop(title);
-        rootBorderPane.setCenter(gridPane);
+        rootBorderPane.setCenter(portfolioTable);
     }
 
-    void populateGrid() {
-        gridPane.getChildren().clear();
-        gridPane.add(new Text("Name"), 0, 0);
-        gridPane.add(new Text("Total"), 1, 0);
-
-        int i;
-        ImmutableList<Portfolio> portfolios = portfolioDAO.findAll();
-        for (i = 0; i < portfolios.size(); i++ ) {
-            Portfolio portfolio = portfolios.get(i);
-            gridPane.add(new Text(portfolio.name), 0, i + 1);
-            gridPane.add(new Text("$100"), 1, i + 1);
-        }
-
-        gridPane.add(new Text("Grand Total"), 0, i + 1);
-        gridPane.add(new Text("$200"), 1, i + 1);
+    void updatePortfolios() {
+        ObservableList<Portfolio> portfolios = FXCollections.observableArrayList(portfolioDAO.findAll());
+        portfolioTable.setItems(portfolios);
     }
 
     @Override
@@ -68,6 +61,6 @@ public class PortfoliosController implements Controller {
 
     @Subscribe
     public void onEvent(PortfolioDAO.Event event) {
-        populateGrid();
+        updatePortfolios();
     }
 }

@@ -5,25 +5,24 @@ import com.google.common.collect.ImmutableList;
 public class Account {
     public final Integer id;
     public final String name;
-
-    //firm
-    //type (ira, taxable, etc)
-
-    public final ImmutableList<Fund> funds;
+    public final Firm firm;
+    public final ImmutableList<Investment> investments;
 
     private Account(Builder builder) {
         id = builder.id;
         name = builder.name;
-        funds = builder.funds;
+        firm = builder.firm;
+        investments = builder.investments;
     }
 
     public static final class Builder {
         private Integer id;
         private String name;
-        private ImmutableList<Fund> funds;
+        private Firm firm;
+        private ImmutableList<Investment> investments;
 
         public Builder() {
-            funds = ImmutableList.of();
+            investments = ImmutableList.of();
         }
 
         public Builder id(Integer id) {
@@ -36,8 +35,13 @@ public class Account {
             return this;
         }
 
-        public Builder funds(ImmutableList<Fund> funds) {
-            this.funds = funds;
+        public Builder firm(Firm firm) {
+            this.firm = firm;
+            return this;
+        }
+
+        public Builder investments(ImmutableList<Investment> investments) {
+            this.investments = investments;
             return this;
         }
 

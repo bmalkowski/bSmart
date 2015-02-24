@@ -50,7 +50,9 @@ public class InvestmentsController implements Controller {
 
             gridPane.add(new Text("Funds"), 0, row++, 1, 1);
             for (Investment investment : account.investments) {
-                gridPane.add(new Text("" + investment.quantity), 0, row++);
+                gridPane.add(new Text("" + investment.fund.name), 0, row);
+                gridPane.add(new Text("" + investment.quantity), 1, row);
+                row++;
             }
         }
     }

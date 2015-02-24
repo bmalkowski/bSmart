@@ -2,16 +2,15 @@ package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.generated.tables.records.*;
+import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
+import com.voodooloo.bsmart.generated.tables.records.FundRecord;
+import com.voodooloo.bsmart.generated.tables.records.InvestmentRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 
 import javax.inject.Inject;
-
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static com.voodooloo.bsmart.generated.Tables.*;
 
@@ -33,23 +32,25 @@ public class AccountDAO {
     }
 
     public ImmutableList<Account> findAll() {
+        Map<AccountRecord, Result<Record>> records = context.select()
+                                                            .from(ACCOUNT.join(INVESTMENT.join(FUND)
+                                                                                         .onKey())
+                                                                         .onKey())
+                                                            .fetchGroups(ACCOUNT);
+
         ImmutableList.Builder<Account> accounts = ImmutableList.builder();
-        Result<Record> records = context.select()
-                                      .from(ACCOUNT.join(INVESTMENT).onKey())
-                                      .fetch();
-        Map<AccountRecord, Result<Record>> map = records.intoGroups(ACCOUNT);
-        for (Map.Entry<AccountRecord, Result<Record>> entry : map.entrySet()) {
+        for (Map.Entry<AccountRecord, Result<Record>> entry : records.entrySet()) {
             ImmutableList.Builder<Investment> investments = ImmutableList.builder();
-            Result<InvestmentRecord> investmentRecords = entry.getValue().into(INVESTMENT);
-            Stream<Investment> investmentStream = investmentRecords.stream().map(new Function<InvestmentRecord, Investment>() {
-                @Override
-                public Investment apply(InvestmentRecord investmentRecord) {
-                    return new Investment.Builder().id(investmentRecord.getId())
-                                                   .quantity(investmentRecord.getQuantity())
-                                                   .build();
-                }
-            });
-            investments.addAll(investmentStream.iterator());
+
+            for (Record record : entry.getValue()) {
+                FundRecord fundRecord = record.into(FUND);
+                Fund.Builder builder = builderFrom(fundRecord);
+
+                InvestmentRecord investmentRecord = record.into(INVESTMENT);
+                Investment.Builder investmentBuilder = builderFrom(investmentRecord);
+                investmentBuilder.fund(builder.build());
+                investments.add(investmentBuilder.build());
+            }
 
             Account.Builder builder = builderFrom(entry.getKey());
             builder.investments(investments.build());
@@ -57,19 +58,21 @@ public class AccountDAO {
         }
 
         return accounts.build();
-//        return ImmutableList.copyOf(
-//                context.selectFrom(ACCOUNT)
-//                       .fetch()
-//                       .stream()
-//                       .map(this::convertFrom)
-//                       .iterator()
-//                                   );
-
     }
 
     Account.Builder builderFrom(AccountRecord record) {
         return new Account.Builder().id(record.getId())
                                     .name(record.getName());
+    }
+
+    Investment.Builder builderFrom(InvestmentRecord record) {
+        return new Investment.Builder().id(record.getId())
+                                       .quantity(record.getQuantity());
+    }
+
+    Fund.Builder builderFrom(FundRecord record) {
+        return new Fund.Builder().id(record.getId())
+                                 .name(record.getName());
     }
 
     public static enum Event {

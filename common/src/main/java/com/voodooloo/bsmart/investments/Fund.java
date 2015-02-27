@@ -1,12 +1,12 @@
 package com.voodooloo.bsmart.investments;
 
-import org.joda.money.Money;
+import org.joda.money.BigMoney;
 
 public class Fund {
     public final int id;
     public final String symbol;
     public final String name;
-    public final Money price;
+    public final BigMoney price;
 
     private Fund(Builder builder) {
         id = builder.id;
@@ -18,7 +18,7 @@ public class Fund {
     public static final class Builder {
         private String symbol;
         private String name;
-        private Money price;
+        private BigMoney price;
         private int id;
 
         public Builder() {
@@ -39,7 +39,7 @@ public class Fund {
             return this;
         }
 
-        public Builder price(Money price) {
+        public Builder price(BigMoney price) {
             this.price = price;
             return this;
         }

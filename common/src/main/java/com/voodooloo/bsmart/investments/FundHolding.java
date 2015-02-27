@@ -1,18 +1,24 @@
 package com.voodooloo.bsmart.investments;
 
+import org.joda.money.BigMoney;
+
 import java.math.BigDecimal;
 
-public class Investment {
+public class FundHolding {
     public final Integer id;
     public final Account account;
     public final Fund fund;
     public final BigDecimal quantity;
 
-    private Investment(Builder builder) {
+    private FundHolding(Builder builder) {
         id = builder.id;
         account = builder.account;
         fund = builder.fund;
         quantity = builder.quantity;
+    }
+
+    public BigMoney value() {
+      return fund.price.multipliedBy(quantity);
     }
 
     public static final class Builder {
@@ -44,8 +50,8 @@ public class Investment {
             return this;
         }
 
-        public Investment build() {
-            return new Investment(this);
+        public FundHolding build() {
+            return new FundHolding(this);
         }
     }
 }

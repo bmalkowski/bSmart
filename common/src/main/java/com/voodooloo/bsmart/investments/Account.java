@@ -6,23 +6,23 @@ public class Account {
     public final Integer id;
     public final String name;
     public final Firm firm;
-    public final ImmutableList<Investment> investments;
+    public final ImmutableList<FundHolding> fundHoldings;
 
     private Account(Builder builder) {
         id = builder.id;
         name = builder.name;
         firm = builder.firm;
-        investments = builder.investments;
+        fundHoldings = builder.fundHoldings;
     }
 
     public static final class Builder {
         private Integer id;
         private String name;
         private Firm firm;
-        private ImmutableList<Investment> investments;
+        private ImmutableList<FundHolding> fundHoldings;
 
         public Builder() {
-            investments = ImmutableList.of();
+            fundHoldings = ImmutableList.of();
         }
 
         public Builder id(Integer id) {
@@ -40,8 +40,8 @@ public class Account {
             return this;
         }
 
-        public Builder investments(ImmutableList<Investment> investments) {
-            this.investments = investments;
+        public Builder investments(ImmutableList<FundHolding> fundHoldings) {
+            this.fundHoldings = fundHoldings;
             return this;
         }
 

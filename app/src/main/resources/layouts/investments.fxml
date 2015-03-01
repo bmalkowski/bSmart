@@ -1,0 +1,10 @@
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.voodooloo.bsmart.ui.investments.InvestmentsController">
+    <center>
+        <VBox fx:id="accountsBox"/>
+    </center>
+</BorderPane>

@@ -18,7 +18,7 @@ dependencies {
 
     //UI
     compile 'org.controlsfx:controlsfx:8.20.8'
-    compile 'de.jensd:fontawesomefx:8.0.13'
+    compile 'de.jensd:fontawesomefx:8.1.+'
 }
 
 compileJava {

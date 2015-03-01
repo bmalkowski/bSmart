@@ -1,9 +1,12 @@
 package com.voodooloo.bsmart;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.io.Resources;
 import com.voodooloo.bsmart.ui.AppController;
+import com.voodooloo.bsmart.utils.DaggerFXMLLoader;
 import dagger.ObjectGraph;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,14 +18,9 @@ import javax.inject.Inject;
 public class App extends Application {
     final ObjectGraph objectGraph;
 
-    @Inject
-    AppController appController;
-
-    @Inject
-    DSLContext context;
-
-    @Inject
-    EventBus bus;
+    @Inject AppController appController;
+    @Inject DSLContext context;
+    @Inject EventBus bus;
 
     public EventBus bus() {
         return bus;
@@ -77,18 +75,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        appController.load();
-        Scene scene = new Scene((Parent)appController.node(), 800, 600);
+//        URL url = Resources.getResource("app.fxml");
+//        Node node = FXMLLoader.load(url);
+//        appController.load();
+        DaggerFXMLLoader loader = new DaggerFXMLLoader(objectGraph);
+        Node node = loader.load(Resources.getResource("layouts/app.fxml"));
+        Scene scene = new Scene((Parent)node, 800, 600);
 
         primaryStage.setTitle("bSmart");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-        appController.unload();
     }
 
     public static void main(String[] args) {

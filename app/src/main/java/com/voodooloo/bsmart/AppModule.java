@@ -3,7 +3,9 @@ package com.voodooloo.bsmart;
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
+import com.voodooloo.bsmart.ui.investments.InvestmentsController;
 import com.voodooloo.bsmart.ui.portfolios.PortfolioFactory;
+import com.voodooloo.bsmart.ui.portfolios.PortfoliosController;
 import dagger.Module;
 import dagger.Provides;
 import org.h2.jdbcx.JdbcDataSource;
@@ -20,6 +22,8 @@ import javax.sql.DataSource;
         App.class,
 
         AppController.class,
+        PortfoliosController.class,
+        InvestmentsController.class,
 
         PortfolioFactory.class,
         InvestmentFactory.class,

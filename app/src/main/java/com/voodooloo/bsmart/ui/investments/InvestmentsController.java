@@ -5,26 +5,27 @@ import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Account;
 import com.voodooloo.bsmart.investments.AccountDAO;
 import com.voodooloo.bsmart.investments.FundHolding;
-import com.voodooloo.bsmart.ui.Controller;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
+import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.joda.money.Money;
-import org.joda.money.format.*;
+import org.joda.money.format.MoneyAmountStyle;
+import org.joda.money.format.MoneyFormatter;
+import org.joda.money.format.MoneyFormatterBuilder;
 
 import javax.inject.Inject;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 
-public class InvestmentsController implements Controller {
+public class InvestmentsController {
     final App app;
     final AccountDAO accountDAO;
 
-    BorderPane rootBorderPane;
-    VBox accountsBox;
+    @FXML BorderPane root;
+    @FXML VBox accountsBox;
 
     @Inject
     public InvestmentsController(App app, AccountDAO accountDAO) {
@@ -32,14 +33,11 @@ public class InvestmentsController implements Controller {
         this.accountDAO = accountDAO;
     }
 
-    public void load() {
+    @FXML
+    public void initialize() {
         app.bus().register(this);
 
-        accountsBox = new VBox();
         rebuildAccounts();
-
-        rootBorderPane = new BorderPane();
-        rootBorderPane.setCenter(accountsBox);
     }
 
     void rebuildAccounts() {
@@ -68,16 +66,6 @@ public class InvestmentsController implements Controller {
               row++;
             }
         }
-    }
-
-    @Override
-    public Node node() {
-        return rootBorderPane;
-    }
-
-    @Override
-    public void unload() {
-        app.bus().unregister(this);
     }
 
     void onAdd(ActionEvent event) {

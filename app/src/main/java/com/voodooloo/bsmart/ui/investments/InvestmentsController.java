@@ -5,7 +5,6 @@ import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Account;
 import com.voodooloo.bsmart.investments.AccountDAO;
 import com.voodooloo.bsmart.investments.FundHolding;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -23,6 +22,8 @@ import java.text.NumberFormat;
 public class InvestmentsController {
     final App app;
     final AccountDAO accountDAO;
+    final NumberFormat quantityFormatter;
+    final MoneyFormatter currencyFormatter;
 
     @FXML BorderPane root;
     @FXML VBox accountsBox;
@@ -31,6 +32,11 @@ public class InvestmentsController {
     public InvestmentsController(App app, AccountDAO accountDAO) {
         this.app = app;
         this.accountDAO = accountDAO;
+
+        quantityFormatter = NumberFormat.getNumberInstance();
+        currencyFormatter = new MoneyFormatterBuilder().appendCurrencySymbolLocalized()
+                                                       .appendAmount(MoneyAmountStyle.LOCALIZED_GROUPING)
+                                                       .toFormatter();
     }
 
     @FXML
@@ -43,10 +49,6 @@ public class InvestmentsController {
     void rebuildAccounts() {
         accountsBox.getChildren().clear();
 
-        NumberFormat quantityFormatter = NumberFormat.getNumberInstance();
-        MoneyFormatter currencyFormatter = new MoneyFormatterBuilder().appendCurrencySymbolLocalized()
-                                                                      .appendAmount(MoneyAmountStyle.LOCALIZED_GROUPING)
-                                                                      .toFormatter();
         for (Account account : accountDAO.findAll()) {
             GridPane gridPane = new GridPane();
             accountsBox.getChildren().add(gridPane);
@@ -63,13 +65,9 @@ public class InvestmentsController {
                 gridPane.add(new Text(fundHolding.fund.name), 0, row);
                 gridPane.add(new Text(quantityFormatter.format(fundHolding.quantity)), 1, row);
                 gridPane.add(new Text(currencyFormatter.print(value)), 2, row);
-              row++;
+                row++;
             }
         }
-    }
-
-    void onAdd(ActionEvent event) {
-        new InvestmentFactory(app, accountDAO).showNewDialog();
     }
 
     @Subscribe

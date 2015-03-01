@@ -42,5 +42,21 @@ CREATE TABLE portfolio_investment (
     percentage DECIMAL(3, 2) not null,
     PRIMARY KEY (portfolio_id, investment_id),
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
-    FOREIGN KEY (investment_id) REFERENCES investment(id),
+    FOREIGN KEY (investment_id) REFERENCES investment(id)
 );
+
+CREATE TABLE journal (
+    id INTEGER not null auto_increment,
+    account_id INTEGER not null,
+    fund_id INTEGER not null,
+    delta DECIMAL(13, 4) not null,
+    PRIMARY KEY (id),
+    FOREIGN KEY (account_id) REFERENCES account(id),
+    FOREIGN KEY (fund_id) REFERENCES fund(id)
+);
+
+CREATE TRIGGER trigger_journal_update
+    AFTER INSERT, DELETE, UPDATE
+    ON journal
+    FOR EACH ROW
+    CALL "com.voodooloo.bsmart.triggers.JournalUpdate";

@@ -50,4 +50,9 @@ public class Tables {
 	 * The table PUBLIC.PORTFOLIO_INVESTMENT
 	 */
 	public static final com.voodooloo.bsmart.generated.tables.PortfolioInvestment PORTFOLIO_INVESTMENT = com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT;
+
+	/**
+	 * The table PUBLIC.JOURNAL
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Journal JOURNAL = com.voodooloo.bsmart.generated.tables.Journal.JOURNAL;
 }

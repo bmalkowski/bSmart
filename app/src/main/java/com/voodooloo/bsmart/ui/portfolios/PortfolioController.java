@@ -3,14 +3,12 @@ package com.voodooloo.bsmart.ui.portfolios;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioDAO;
-import com.voodooloo.bsmart.ui.Controller;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class PortfolioController implements Controller {
+public class PortfolioController {
     final App app;
     final PortfolioDAO portfolioDAO;
     final Portfolio portfolio;
@@ -31,15 +29,5 @@ public class PortfolioController implements Controller {
 
         rootBorderPane = new BorderPane();
         rootBorderPane.setTop(title);
-    }
-
-    @Override
-    public Node node() {
-        return rootBorderPane;
-    }
-
-    @Override
-    public void unload() {
-        app.bus().unregister(this);
     }
 }

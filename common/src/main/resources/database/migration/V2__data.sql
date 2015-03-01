@@ -14,3 +14,6 @@ insert into investment (account_id, fund_id, quantity) values (1, 2, 50);
 insert into investment (account_id, fund_id, quantity) values (2, 1, 200);
 
 insert into portfolio_investment (portfolio_id, investment_id, percentage) values (1, 1, 0.5);
+
+insert into journal (account_id, fund_id, delta) values (2, 2, 75);
+insert into journal (account_id, fund_id, delta) values (2, 2, 50);

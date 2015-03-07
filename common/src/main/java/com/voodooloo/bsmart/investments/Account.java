@@ -1,6 +1,8 @@
 package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 
 public class Account {
     public final Integer id;
@@ -13,6 +15,12 @@ public class Account {
         name = builder.name;
         firm = builder.firm;
         holdings = builder.holdings;
+    }
+
+    public BigMoney value() {
+        return holdings.stream()
+                       .map(Holding::value)
+                       .reduce(BigMoney.zero(CurrencyUnit.USD), BigMoney::plus);
     }
 
     public static final class Builder {

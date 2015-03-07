@@ -53,8 +53,11 @@ public class InvestmentsController {
             GridPane gridPane = new GridPane();
             accountsBox.getChildren().add(gridPane);
 
+            Money holdingValue = account.value().toMoney(RoundingMode.HALF_EVEN);
+
             int row = 0;
-            gridPane.add(new Text(account.name), 0, row++);
+            gridPane.add(new Text(account.name), 0, row);
+            gridPane.add(new Text(currencyFormatter.print(holdingValue)), 1, row++);
 
             gridPane.add(new Text("Funds"), 0, row++);
             gridPane.add(new Text("Name"), 0, row);

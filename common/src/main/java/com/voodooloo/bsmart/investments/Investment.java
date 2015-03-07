@@ -2,13 +2,13 @@ package com.voodooloo.bsmart.investments;
 
 import org.joda.money.BigMoney;
 
-public class Fund {
+public class Investment {
     public final int id;
     public final String symbol;
     public final String name;
     public final BigMoney price;
 
-    private Fund(Builder builder) {
+    private Investment(Builder builder) {
         id = builder.id;
         symbol = builder.symbol;
         name = builder.name;
@@ -44,8 +44,8 @@ public class Fund {
             return this;
         }
 
-        public Fund build() {
-            return new Fund(this);
+        public Investment build() {
+            return new Investment(this);
         }
     }
 }

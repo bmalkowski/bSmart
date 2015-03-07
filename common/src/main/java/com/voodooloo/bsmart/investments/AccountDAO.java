@@ -3,15 +3,13 @@ package com.voodooloo.bsmart.investments;
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
-import com.voodooloo.bsmart.generated.tables.records.FundRecord;
+import com.voodooloo.bsmart.generated.tables.records.HoldingRecord;
 import com.voodooloo.bsmart.generated.tables.records.InvestmentRecord;
-import org.joda.money.*;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 import static com.voodooloo.bsmart.generated.Tables.*;
 
@@ -33,31 +31,28 @@ public class AccountDAO {
     }
 
     public ImmutableList<Account> findAll() {
-        Map<AccountRecord, Result<Record>> records = context.select()
-                                                            .from(ACCOUNT.join(INVESTMENT.join(FUND)
-                                                                                         .onKey())
-                                                                         .onKey())
-                                                            .fetchGroups(ACCOUNT);
-
         ImmutableList.Builder<Account> accounts = ImmutableList.builder();
-        for (Map.Entry<AccountRecord, Result<Record>> entry : records.entrySet()) {
-            ImmutableList.Builder<FundHolding> investments = ImmutableList.builder();
+        context.select()
+               .from(ACCOUNT.join(HOLDING.join(INVESTMENT)
+                                         .onKey())
+                            .onKey())
+               .fetchGroups(ACCOUNT)
+               .forEach((accountRecord, records) -> {
+                   ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
+                   records.forEach(record -> {
+                       InvestmentRecord investmentRecord = record.into(INVESTMENT);
+                       Investment.Builder investmentBuilder = builderFrom(investmentRecord);
 
-            for (Record record : entry.getValue()) {
-                FundRecord fundRecord = record.into(FUND);
-                Fund.Builder builder = builderFrom(fundRecord);
+                       HoldingRecord holdingRecord = record.into(HOLDING);
+                       Holding.Builder holdingBuilder = builderFrom(holdingRecord);
+                       holdingBuilder.fund(investmentBuilder.build());
+                       holdings.add(holdingBuilder.build());
+                   });
 
-                InvestmentRecord investmentRecord = record.into(INVESTMENT);
-                FundHolding.Builder investmentBuilder = builderFrom(investmentRecord);
-                investmentBuilder.fund(builder.build());
-                investments.add(investmentBuilder.build());
-            }
-
-            Account.Builder builder = builderFrom(entry.getKey());
-            builder.investments(investments.build());
-            accounts.add(builder.build());
-        }
-
+                   Account.Builder builder = builderFrom(accountRecord);
+                   builder.investments(holdings.build());
+                   accounts.add(builder.build());
+               });
         return accounts.build();
     }
 
@@ -66,13 +61,13 @@ public class AccountDAO {
                                     .name(record.getName());
     }
 
-    FundHolding.Builder builderFrom(InvestmentRecord record) {
-        return new FundHolding.Builder().id(record.getId())
-                                       .quantity(record.getQuantity());
+    Holding.Builder builderFrom(HoldingRecord record) {
+        return new Holding.Builder().id(record.getId())
+                                        .quantity(record.getQuantity());
     }
 
-    Fund.Builder builderFrom(FundRecord record) {
-        return new Fund.Builder().id(record.getId())
+    Investment.Builder builderFrom(InvestmentRecord record) {
+        return new Investment.Builder().id(record.getId())
                                  .name(record.getName())
                                  .symbol(record.getSymbol())
                                  .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()));

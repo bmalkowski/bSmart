@@ -10,9 +10,8 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static com.voodooloo.bsmart.generated.Tables.INVESTMENT;
-import static com.voodooloo.bsmart.generated.Tables.JOURNAL;
-import static org.jooq.impl.DSL.sum;
+import static com.voodooloo.bsmart.generated.Tables.*;
+import static org.jooq.impl.DSL.*;
 
 public class JournalUpdate implements Trigger {
     @Override
@@ -26,18 +25,18 @@ public class JournalUpdate implements Trigger {
 
         Object[] existingRow = newRow == null ? oldRow : newRow;
         Integer accountId = (Integer)existingRow[1];
-        Integer fundId = (Integer)existingRow[2];
+        Integer investmentId = (Integer)existingRow[2];
         Record1<BigDecimal> sumRecord = context.select(sum(JOURNAL.DELTA))
                                                .from(JOURNAL)
                                                .where(JOURNAL.ACCOUNT_ID.equal(accountId))
                                                .fetchOne();
 
-        context.mergeInto(INVESTMENT,
-                          INVESTMENT.ACCOUNT_ID,
-                          INVESTMENT.FUND_ID,
-                          INVESTMENT.QUANTITY)
-               .key(INVESTMENT.ACCOUNT_ID, INVESTMENT.FUND_ID)
-               .values(accountId, fundId, sumRecord.value1())
+        context.mergeInto(HOLDING,
+                          HOLDING.ACCOUNT_ID,
+                          HOLDING.INVESTMENT_ID,
+                          HOLDING.QUANTITY)
+               .key(HOLDING.ACCOUNT_ID, HOLDING.INVESTMENT_ID)
+               .values(accountId, investmentId, sumRecord.value1())
                .execute();
     }
 

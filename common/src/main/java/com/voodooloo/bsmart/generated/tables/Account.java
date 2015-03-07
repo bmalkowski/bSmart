@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.AccountRecord> {
 
-	private static final long serialVersionUID = 779636047;
+	private static final long serialVersionUID = -1460645348;
 
 	/**
 	 * The reference instance of <code>PUBLIC.ACCOUNT</code>
@@ -81,7 +81,7 @@ public class Account extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.genera
 	 */
 	@Override
 	public org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord> getPrimaryKey() {
-		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E4;
+		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Account extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.genera
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E4);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Account extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.genera
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, ?>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E49);
+		return java.util.Arrays.<org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, ?>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E4);
 	}
 
 	/**

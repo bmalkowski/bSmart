@@ -22,21 +22,3 @@ CREATE TABLE fund (
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES investment(id)
 );
-
-CREATE TABLE journal (
-    id INTEGER not null auto_increment,
-    account_id INTEGER not null,
-    investment_id INTEGER not null,
-    delta DECIMAL(13, 4) not null,
-    --price / cost / paid
-    trade_date DATETIME not null,
-    PRIMARY KEY (id),
-    FOREIGN KEY (account_id) REFERENCES account(id),
-    FOREIGN KEY (investment_id) REFERENCES investment(id)
-);
-
-CREATE TRIGGER trigger_journal_update
-    AFTER INSERT, DELETE, UPDATE
-    ON journal
-    FOR EACH ROW
-    CALL "com.voodooloo.bsmart.triggers.JournalUpdate";

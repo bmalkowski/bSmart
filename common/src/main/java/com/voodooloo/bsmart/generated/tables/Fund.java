@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Fund extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.FundRecord> {
 
-	private static final long serialVersionUID = -2123368256;
+	private static final long serialVersionUID = -1393110418;
 
 	/**
 	 * The reference instance of <code>PUBLIC.FUND</code>
@@ -34,22 +34,12 @@ public class Fund extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated
 	/**
 	 * The column <code>PUBLIC.FUND.ID</code>.
 	 */
-	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.Integer> ID = createField("ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaulted(true), this, "");
+	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.Integer> ID = createField("ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.FUND.SYMBOL</code>.
+	 * The column <code>PUBLIC.FUND.EXPENSE_RATIO</code>.
 	 */
-	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.String> SYMBOL = createField("SYMBOL", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
-
-	/**
-	 * The column <code>PUBLIC.FUND.NAME</code>.
-	 */
-	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
-
-	/**
-	 * The column <code>PUBLIC.FUND.PRICE</code>.
-	 */
-	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.math.BigDecimal> PRICE = createField("PRICE", org.jooq.impl.SQLDataType.DECIMAL.precision(9, 4).nullable(false), this, "");
+	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.math.BigDecimal> EXPENSE_RATIO = createField("EXPENSE_RATIO", org.jooq.impl.SQLDataType.DECIMAL.precision(3, 2).nullable(false), this, "");
 
 	/**
 	 * Create a <code>PUBLIC.FUND</code> table reference
@@ -77,16 +67,8 @@ public class Fund extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated
 	 * {@inheritDoc}
 	 */
 	@Override
-	public org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FundRecord, java.lang.Integer> getIdentity() {
-		return com.voodooloo.bsmart.generated.Keys.IDENTITY_FUND;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord> getPrimaryKey() {
-		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_21;
+		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2;
 	}
 
 	/**
@@ -94,7 +76,15 @@ public class Fund extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_21);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FundRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public java.util.List<org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.FundRecord, ?>> getReferences() {
+		return java.util.Arrays.<org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.FundRecord, ?>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_21);
 	}
 
 	/**

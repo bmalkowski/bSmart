@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Portfolio extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> {
 
-	private static final long serialVersionUID = -580927002;
+	private static final long serialVersionUID = -1107675734;
 
 	/**
 	 * The reference instance of <code>PUBLIC.PORTFOLIO</code>
@@ -76,7 +76,7 @@ public class Portfolio extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.gene
 	 */
 	@Override
 	public org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> getPrimaryKey() {
-		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E;
+		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E8;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Portfolio extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.gene
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E8);
 	}
 
 	/**

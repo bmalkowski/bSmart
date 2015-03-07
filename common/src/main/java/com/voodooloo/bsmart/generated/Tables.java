@@ -22,24 +22,9 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.SchemaVersion SCHEMA_VERSION = com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION;
 
 	/**
-	 * The table PUBLIC.FIRM
+	 * The table PUBLIC.INVESTMENT_TYPE
 	 */
-	public static final com.voodooloo.bsmart.generated.tables.Firm FIRM = com.voodooloo.bsmart.generated.tables.Firm.FIRM;
-
-	/**
-	 * The table PUBLIC.FUND
-	 */
-	public static final com.voodooloo.bsmart.generated.tables.Fund FUND = com.voodooloo.bsmart.generated.tables.Fund.FUND;
-
-	/**
-	 * The table PUBLIC.PORTFOLIO
-	 */
-	public static final com.voodooloo.bsmart.generated.tables.Portfolio PORTFOLIO = com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO;
-
-	/**
-	 * The table PUBLIC.ACCOUNT
-	 */
-	public static final com.voodooloo.bsmart.generated.tables.Account ACCOUNT = com.voodooloo.bsmart.generated.tables.Account.ACCOUNT;
+	public static final com.voodooloo.bsmart.generated.tables.InvestmentType INVESTMENT_TYPE = com.voodooloo.bsmart.generated.tables.InvestmentType.INVESTMENT_TYPE;
 
 	/**
 	 * The table PUBLIC.INVESTMENT
@@ -47,12 +32,37 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.Investment INVESTMENT = com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT;
 
 	/**
-	 * The table PUBLIC.PORTFOLIO_INVESTMENT
+	 * The table PUBLIC.FUND
 	 */
-	public static final com.voodooloo.bsmart.generated.tables.PortfolioInvestment PORTFOLIO_INVESTMENT = com.voodooloo.bsmart.generated.tables.PortfolioInvestment.PORTFOLIO_INVESTMENT;
+	public static final com.voodooloo.bsmart.generated.tables.Fund FUND = com.voodooloo.bsmart.generated.tables.Fund.FUND;
+
+	/**
+	 * The table PUBLIC.FIRM
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Firm FIRM = com.voodooloo.bsmart.generated.tables.Firm.FIRM;
+
+	/**
+	 * The table PUBLIC.ACCOUNT
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Account ACCOUNT = com.voodooloo.bsmart.generated.tables.Account.ACCOUNT;
 
 	/**
 	 * The table PUBLIC.JOURNAL
 	 */
 	public static final com.voodooloo.bsmart.generated.tables.Journal JOURNAL = com.voodooloo.bsmart.generated.tables.Journal.JOURNAL;
+
+	/**
+	 * The table PUBLIC.PORTFOLIO
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Portfolio PORTFOLIO = com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO;
+
+	/**
+	 * The table PUBLIC.HOLDING
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Holding HOLDING = com.voodooloo.bsmart.generated.tables.Holding.HOLDING;
+
+	/**
+	 * The table PUBLIC.PORTFOLIO_HOLDING
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.PortfolioHolding PORTFOLIO_HOLDING = com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING;
 }

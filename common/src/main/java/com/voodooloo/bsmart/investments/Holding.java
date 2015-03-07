@@ -4,27 +4,27 @@ import org.joda.money.BigMoney;
 
 import java.math.BigDecimal;
 
-public class FundHolding {
+public class Holding {
     public final Integer id;
     public final Account account;
-    public final Fund fund;
+    public final Investment investment;
     public final BigDecimal quantity;
 
-    private FundHolding(Builder builder) {
+    private Holding(Builder builder) {
         id = builder.id;
         account = builder.account;
-        fund = builder.fund;
+        investment = builder.investment;
         quantity = builder.quantity;
     }
 
     public BigMoney value() {
-      return fund.price.multipliedBy(quantity);
+      return investment.price.multipliedBy(quantity);
     }
 
     public static final class Builder {
         private Integer id;
         private Account account;
-        private Fund fund;
+        private Investment investment;
         private BigDecimal quantity;
 
         public Builder() {
@@ -40,8 +40,8 @@ public class FundHolding {
             return this;
         }
 
-        public Builder fund(Fund fund) {
-            this.fund = fund;
+        public Builder fund(Investment investment) {
+            this.investment = investment;
             return this;
         }
 
@@ -50,8 +50,8 @@ public class FundHolding {
             return this;
         }
 
-        public FundHolding build() {
-            return new FundHolding(this);
+        public Holding build() {
+            return new Holding(this);
         }
     }
 }

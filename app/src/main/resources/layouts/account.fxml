@@ -1,0 +1,25 @@
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.voodooloo.bsmart.ui.accounts.SummaryController">
+    <top>
+        <HBox fx:id="header">
+            <Text fx:id="nameText" HBox.hgrow="ALWAYS"/>
+            <Text fx:id="valueText"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="summary">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Name"/>
+                <TableColumn fx:id="quantityColumn" text="Quantity"/>
+                <TableColumn fx:id="valueColumn" text="Value"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

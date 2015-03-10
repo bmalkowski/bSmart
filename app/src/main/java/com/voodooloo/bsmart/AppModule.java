@@ -2,10 +2,13 @@ package com.voodooloo.bsmart;
 
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
+import com.voodooloo.bsmart.ui.accounts.AccountsController;
+import com.voodooloo.bsmart.ui.accounts.SummaryController;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
 import com.voodooloo.bsmart.ui.portfolios.PortfolioFactory;
 import com.voodooloo.bsmart.ui.portfolios.PortfoliosController;
+import com.voodooloo.bsmart.utils.FXMLProvider;
 import dagger.Module;
 import dagger.Provides;
 import org.h2.jdbcx.JdbcDataSource;
@@ -23,6 +26,8 @@ import javax.sql.DataSource;
 
         AppController.class,
         PortfoliosController.class,
+        AccountsController.class,
+        SummaryController.class,
         InvestmentsController.class,
 
         PortfolioFactory.class,
@@ -58,5 +63,11 @@ public class AppModule {
     @Provides
     EventBus provideEventBus() {
         return new EventBus();
+    }
+
+    @Singleton
+    @Provides
+    FXMLProvider provideFXMLProvider(App app) {
+        return new FXMLProvider(app.objectGraph);
     }
 }

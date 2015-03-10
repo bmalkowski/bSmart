@@ -1,0 +1,20 @@
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:id="root"
+      fx:controller="com.voodooloo.bsmart.ui.accounts.AccountsController">
+    <VBox fx:id="list" style="-fx-background-color: #dddddd;"/>
+    <VBox fx:id="content">
+        <HBox fx:id="options">
+            <Button text="Summary"
+                    maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS">
+            </Button>
+            <Button text="Transactions"
+                    maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS">
+            </Button>
+        </HBox>
+    </VBox>
+</HBox>

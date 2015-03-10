@@ -31,7 +31,6 @@ public class PortfoliosController {
 
     @FXML
     public void initialize() {
-        app.bus().register(this);
 
         nameColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
         totalColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));

@@ -7,62 +7,25 @@
             fx:controller="com.voodooloo.bsmart.ui.AppController">
     <top>
         <HBox>
-            <Button text="New Portfolio"
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Portfolios"
                     maxWidth="Infinity"
                     HBox.hgrow="ALWAYS"
-                    contentDisplay="TOP"
-                    onAction="#onAddPortfolio">
+                    onAction="#onPortfolios">
                 <graphic>
                     <FontAwesomeIcon glyphName="CALCULATOR"/>
                 </graphic>
             </Button>
 
-            <Button text="New Investment"
+            <Button text="Accounts"
                     maxWidth="Infinity"
                     HBox.hgrow="ALWAYS"
-                    contentDisplay="TOP"
-                    onAction="#onAddPortfolio">
-                <graphic>
-                    <FontAwesomeIcon glyphName="DOLLAR"/>
-                </graphic>
-            </Button>
-
-            <Button text="New Account"
-                    maxWidth="Infinity"
-                    HBox.hgrow="ALWAYS"
-                    contentDisplay="TOP"
-                    onAction="#onAddPortfolio">
+                    onAction="#onAccounts">
                 <graphic>
                     <FontAwesomeIcon glyphName="FOLDER"/>
                 </graphic>
             </Button>
-
-            <Button text="New Firm"
-                    maxWidth="Infinity"
-                    HBox.hgrow="ALWAYS"
-                    contentDisplay="TOP"
-                    onAction="#onAddPortfolio">
-                <graphic>
-                    <FontAwesomeIcon glyphName="BANK"/>
-                </graphic>
-            </Button>
         </HBox>
     </top>
-
-    <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab text="Portfolios">
-                    <content>
-                        <fx:include source="portfolios.fxml"/>
-                    </content>
-                </Tab>
-                <Tab text="Investments">
-                    <content>
-                        <fx:include source="investments.fxml"/>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
-    </center>
 </BorderPane>

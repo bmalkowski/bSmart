@@ -41,7 +41,6 @@ public class InvestmentsController {
 
     @FXML
     public void initialize() {
-        app.bus().register(this);
 
         rebuildAccounts();
     }
@@ -58,6 +57,11 @@ public class InvestmentsController {
             int row = 0;
             gridPane.add(new Text(account.name), 0, row);
             gridPane.add(new Text(currencyFormatter.print(holdingValue)), 1, row++);
+            gridPane.setOnMouseClicked(event -> {
+//                    Node node = app.loadFXML("layouts/account.fxml");
+//                    node.controller.setAccount(account);
+
+            });
 
             gridPane.add(new Text("Funds"), 0, row++);
             gridPane.add(new Text("Name"), 0, row);

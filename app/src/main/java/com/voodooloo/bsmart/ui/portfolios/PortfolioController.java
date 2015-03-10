@@ -22,7 +22,6 @@ public class PortfolioController {
     }
 
     public void load() {
-        app.bus().register(this);
 
         Text title = new Text(portfolio.name);
         title.setFont(Font.font("Arial", FontWeight.BOLD, 20));

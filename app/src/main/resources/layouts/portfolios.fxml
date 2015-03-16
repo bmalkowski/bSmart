@@ -1,16 +1,14 @@
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
-
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:id="root"
-            fx:controller="com.voodooloo.bsmart.ui.portfolios.PortfoliosController">
-    <center>
-        <TableView fx:id="portfolioTable">
-            <columns>
-                <TableColumn fx:id="nameColumn" text="Name"/>
-                <TableColumn fx:id="totalColumn" text="Total"/>
-            </columns>
-        </TableView>
-    </center>
-</BorderPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.voodooloo.bsmart.ui.portfolios.PortfoliosController">
+  <TableView fx:id="portfolioTable">
+    <columnResizePolicy>
+      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+    </columnResizePolicy>
+    <columns>
+      <TableColumn fx:id="nameColumn" text="Name" />
+      <TableColumn fx:id="totalColumn" text="Total" />
+    </columns>
+  </TableView>
+</VBox>

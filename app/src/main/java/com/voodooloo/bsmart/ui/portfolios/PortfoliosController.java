@@ -10,40 +10,35 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
 
 public class PortfoliosController {
-    final App app;
-    final PortfolioDAO portfolioDAO;
+  final PortfolioDAO portfolioDAO;
 
-    @FXML BorderPane root;
-    @FXML TableView<Portfolio> portfolioTable;
-    @FXML TableColumn<Portfolio, String> nameColumn;
-    @FXML TableColumn<Portfolio, String> totalColumn;
+  @FXML TableView<Portfolio> portfolioTable;
+  @FXML TableColumn<Portfolio, String> nameColumn;
+  @FXML TableColumn<Portfolio, String> totalColumn;
 
-    @Inject
-    public PortfoliosController(App app, PortfolioDAO portfolioDAO) {
-        this.app = app;
-        this.portfolioDAO = portfolioDAO;
-    }
+  @Inject
+  public PortfoliosController(PortfolioDAO portfolioDAO) {
+    this.portfolioDAO = portfolioDAO;
+  }
 
-    @FXML
-    public void initialize() {
+  @FXML
+  public void initialize() {
+    nameColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
+    totalColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
+    updatePortfolios();
+  }
 
-        nameColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
-        totalColumn.setCellValueFactory(new SimpleValueFactory<>(portfolio -> portfolio.name));
-        updatePortfolios();
-    }
+  void updatePortfolios() {
+    ObservableList<Portfolio> portfolios = FXCollections.observableArrayList(portfolioDAO.findAll());
+    portfolioTable.setItems(portfolios);
+  }
 
-    void updatePortfolios() {
-        ObservableList<Portfolio> portfolios = FXCollections.observableArrayList(portfolioDAO.findAll());
-        portfolioTable.setItems(portfolios);
-    }
-
-    @Subscribe
-    public void onEvent(PortfolioDAO.Event event) {
-        updatePortfolios();
-    }
+  @Subscribe
+  public void onEvent(PortfolioDAO.Event event) {
+    updatePortfolios();
+  }
 }

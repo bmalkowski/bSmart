@@ -1,31 +1,18 @@
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:id="root"
             fx:controller="com.voodooloo.bsmart.ui.AppController">
-    <top>
-        <HBox>
-            <Region HBox.hgrow="ALWAYS"/>
+  <left>
+    <VBox>
+      <TitledPane text="Portfolios">
+        <fx:include source="portfolios.fxml" />
+      </TitledPane>
 
-            <Button text="Portfolios"
-                    maxWidth="Infinity"
-                    HBox.hgrow="ALWAYS"
-                    onAction="#onPortfolios">
-                <graphic>
-                    <FontAwesomeIcon glyphName="CALCULATOR"/>
-                </graphic>
-            </Button>
-
-            <Button text="Accounts"
-                    maxWidth="Infinity"
-                    HBox.hgrow="ALWAYS"
-                    onAction="#onAccounts">
-                <graphic>
-                    <FontAwesomeIcon glyphName="FOLDER"/>
-                </graphic>
-            </Button>
-        </HBox>
-    </top>
+      <TitledPane text="Accounts">
+        <fx:include source="accounts.fxml" />
+      </TitledPane>
+    </VBox>
+  </left>
 </BorderPane>

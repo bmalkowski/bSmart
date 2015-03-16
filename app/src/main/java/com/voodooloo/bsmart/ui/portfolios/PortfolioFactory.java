@@ -26,10 +26,6 @@ public class PortfolioFactory {
         this.dao = dao;
     }
 
-    public PortfoliosController portfoliosController() {
-        return new PortfoliosController(app, dao);
-    }
-
     public PortfolioController portfolioController(Portfolio portfolio) {
         return new PortfolioController(app, dao, portfolio);
     }

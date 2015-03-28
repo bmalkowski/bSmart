@@ -1,0 +1,23 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.chart.PieChart?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.voodooloo.bsmart.ui.accounts.SummaryController">
+    <HBox fx:id="header">
+        <Text fx:id="nameText" HBox.hgrow="ALWAYS"/>
+        <Text fx:id="valueText"/>
+    </HBox>
+    <TableView fx:id="summary">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Name"/>
+            <TableColumn fx:id="symbolColumn" text="Symbol"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="quantityColumn" text="Quantity"/>
+            <TableColumn fx:id="valueColumn" text="Value"/>
+        </columns>
+    </TableView>
+    <PieChart fx:id="allocations" title="Allocations" legendSide="RIGHT"/>
+</VBox>

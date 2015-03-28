@@ -1,6 +1,5 @@
 package com.voodooloo.bsmart.ui.investments;
 
-import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Account;
 import com.voodooloo.bsmart.investments.AccountDAO;
@@ -41,7 +40,6 @@ public class InvestmentsController {
 
     @FXML
     public void initialize() {
-
         rebuildAccounts();
     }
 
@@ -58,7 +56,7 @@ public class InvestmentsController {
             gridPane.add(new Text(account.name), 0, row);
             gridPane.add(new Text(currencyFormatter.print(holdingValue)), 1, row++);
             gridPane.setOnMouseClicked(event -> {
-//                    Node node = app.loadFXML("layouts/account.fxml");
+//                    Node node = app.loadFXML("layouts/summary.fxml");
 //                    node.controller.setAccount(account);
 
             });
@@ -75,10 +73,5 @@ public class InvestmentsController {
                 row++;
             }
         }
-    }
-
-    @Subscribe
-    public void onEvent(AccountDAO.Event event) {
-        rebuildAccounts();
     }
 }

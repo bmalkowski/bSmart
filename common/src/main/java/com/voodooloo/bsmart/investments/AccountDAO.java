@@ -27,7 +27,6 @@ public class AccountDAO {
         context.insertInto(ACCOUNT)
                .set(ACCOUNT.NAME, account.name)
                .execute();
-        bus.post(Event.UPDATED);
     }
 
     public ImmutableList<Account> findAll() {
@@ -71,9 +70,5 @@ public class AccountDAO {
                                  .name(record.getName())
                                  .symbol(record.getSymbol())
                                  .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()));
-    }
-
-    public static enum Event {
-        UPDATED
     }
 }

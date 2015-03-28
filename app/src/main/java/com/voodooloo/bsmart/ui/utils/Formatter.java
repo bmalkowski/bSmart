@@ -1,7 +1,6 @@
 package com.voodooloo.bsmart.ui.utils;
 
 import org.joda.money.BigMoney;
-import org.joda.money.Money;
 import org.joda.money.format.MoneyAmountStyle;
 import org.joda.money.format.MoneyFormatter;
 import org.joda.money.format.MoneyFormatterBuilder;
@@ -26,7 +25,6 @@ public class Formatter {
     }
 
     public String formatAsCurrency(BigMoney money) {
-        Money simpleMoney = money.toMoney(RoundingMode.HALF_EVEN);
-        return currencyFormatter.print(simpleMoney);
+        return currencyFormatter.print(money.withCurrencyScale(RoundingMode.HALF_EVEN));
     }
 }

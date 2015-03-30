@@ -1,6 +1,9 @@
 insert into investment (investment_type_id, symbol, name, price) values (1, 'vbtlx', 'Vanguard Total Bond Market Index Fund Admiral Shares', 10.89);
 insert into investment (investment_type_id, symbol, name, price) values (1, 'vtsmx', 'Vanguard Total Stock Market Index Fund Investor Shares', 53.17);
 
+insert into investment_category (investment_id, category_id, percentage) values (1, 2, 1);
+insert into investment_category (investment_id, category_id, percentage) values (2, 1, 1);
+
 insert into firm (name) values ('Vanguard');
 insert into firm (name) values ('Fidelity');
 

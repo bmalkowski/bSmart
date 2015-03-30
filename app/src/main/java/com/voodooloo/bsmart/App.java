@@ -25,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         ViewController<Parent, AppController> viewController = fxmlProvider.load("layouts/app.fxml");
-        Scene scene = new Scene(viewController.view, 800, 600);
+        Scene scene = new Scene(viewController.view, 1024, 768);
 
         primaryStage.setTitle("bSmart");
         primaryStage.setScene(scene);

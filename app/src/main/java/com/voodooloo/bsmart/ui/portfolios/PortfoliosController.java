@@ -1,7 +1,5 @@
 package com.voodooloo.bsmart.ui.portfolios;
 
-import com.google.common.eventbus.Subscribe;
-import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioDAO;
 import com.voodooloo.bsmart.ui.utils.Formatter;
@@ -44,10 +42,5 @@ public class PortfoliosController {
     catch (Exception e) {
       Logger.error(e);
     }
-  }
-
-  @Subscribe
-  public void onEvent(PortfolioDAO.Event event) {
-    updatePortfolios();
   }
 }

@@ -1,5 +1,6 @@
 package com.voodooloo.bsmart.investments;
 
+import com.google.common.collect.ImmutableList;
 import org.joda.money.BigMoney;
 
 public class Investment {
@@ -7,12 +8,14 @@ public class Investment {
     public final String symbol;
     public final String name;
     public final BigMoney price;
+    public final ImmutableList<PartialCategory> partialCategories;
 
     private Investment(Builder builder) {
         id = builder.id;
         symbol = builder.symbol;
         name = builder.name;
         price = builder.price;
+        partialCategories = builder.partialCategories;
     }
 
     public static final class Builder {
@@ -20,8 +23,10 @@ public class Investment {
         private String name;
         private BigMoney price;
         private int id;
+        private ImmutableList<PartialCategory> partialCategories;
 
         public Builder() {
+            partialCategories = ImmutableList.of();
         }
 
         public Builder id(int id) {
@@ -41,6 +46,11 @@ public class Investment {
 
         public Builder price(BigMoney price) {
             this.price = price;
+            return this;
+        }
+
+        public Builder partialCategories(ImmutableList<PartialCategory> partialCategories) {
+            this.partialCategories = partialCategories;
             return this;
         }
 

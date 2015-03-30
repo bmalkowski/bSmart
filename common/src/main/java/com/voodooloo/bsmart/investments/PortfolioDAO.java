@@ -25,7 +25,6 @@ public class PortfolioDAO {
     context.insertInto(PORTFOLIO)
            .set(PORTFOLIO.NAME, portfolio.name)
            .execute();
-    bus.post(Event.UPDATED);
   }
 
   public ImmutableList<Portfolio> findAll() {
@@ -76,9 +75,5 @@ public class PortfolioDAO {
                                    .name(record.getName())
                                    .symbol(record.getSymbol())
                                    .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()));
-  }
-
-  public static enum Event {
-    UPDATED
   }
 }

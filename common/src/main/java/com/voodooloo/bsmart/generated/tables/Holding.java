@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Holding extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.HoldingRecord> {
 
-	private static final long serialVersionUID = 1410598733;
+	private static final long serialVersionUID = 516766255;
 
 	/**
 	 * The reference instance of <code>PUBLIC.HOLDING</code>
@@ -94,7 +94,7 @@ public class Holding extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.genera
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_6);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_6, com.voodooloo.bsmart.generated.Keys.CONSTRAINT_6BDE);
 	}
 
 	/**

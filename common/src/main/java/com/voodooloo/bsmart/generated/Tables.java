@@ -37,6 +37,16 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.Fund FUND = com.voodooloo.bsmart.generated.tables.Fund.FUND;
 
 	/**
+	 * The table PUBLIC.CATEGORY
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Category CATEGORY = com.voodooloo.bsmart.generated.tables.Category.CATEGORY;
+
+	/**
+	 * The table PUBLIC.INVESTMENT_CATEGORY
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.InvestmentCategory INVESTMENT_CATEGORY = com.voodooloo.bsmart.generated.tables.InvestmentCategory.INVESTMENT_CATEGORY;
+
+	/**
 	 * The table PUBLIC.FIRM
 	 */
 	public static final com.voodooloo.bsmart.generated.tables.Firm FIRM = com.voodooloo.bsmart.generated.tables.Firm.FIRM;
@@ -47,6 +57,11 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.Account ACCOUNT = com.voodooloo.bsmart.generated.tables.Account.ACCOUNT;
 
 	/**
+	 * The table PUBLIC.HOLDING
+	 */
+	public static final com.voodooloo.bsmart.generated.tables.Holding HOLDING = com.voodooloo.bsmart.generated.tables.Holding.HOLDING;
+
+	/**
 	 * The table PUBLIC.JOURNAL
 	 */
 	public static final com.voodooloo.bsmart.generated.tables.Journal JOURNAL = com.voodooloo.bsmart.generated.tables.Journal.JOURNAL;
@@ -55,11 +70,6 @@ public class Tables {
 	 * The table PUBLIC.PORTFOLIO
 	 */
 	public static final com.voodooloo.bsmart.generated.tables.Portfolio PORTFOLIO = com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO;
-
-	/**
-	 * The table PUBLIC.HOLDING
-	 */
-	public static final com.voodooloo.bsmart.generated.tables.Holding HOLDING = com.voodooloo.bsmart.generated.tables.Holding.HOLDING;
 
 	/**
 	 * The table PUBLIC.PORTFOLIO_HOLDING

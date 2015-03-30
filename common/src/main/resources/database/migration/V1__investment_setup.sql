@@ -22,3 +22,21 @@ CREATE TABLE fund (
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES investment(id)
 );
+
+CREATE TABLE category (
+    id INTEGER not null auto_increment,
+    name VARCHAR(200) not null,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO category (name) VALUES ('Total US Market');
+INSERT INTO category (name) VALUES ('Total Bond Market');
+
+CREATE TABLE investment_category (
+    investment_id INTEGER not null,
+    category_id INTEGER not null,
+    percentage DECIMAL(3, 2) not null,
+    PRIMARY KEY (investment_id, category_id),
+    FOREIGN KEY (investment_id) REFERENCES investment(id),
+    FOREIGN KEY (category_id) REFERENCES category(id)
+);

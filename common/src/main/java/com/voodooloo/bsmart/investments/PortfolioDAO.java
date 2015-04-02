@@ -43,7 +43,7 @@ public class PortfolioDAO {
 
                HoldingRecord holdingRecord = record.into(HOLDING);
                Holding.Builder holdingBuilder = builderFrom(holdingRecord);
-               holdingBuilder.fund(investmentBuilder.build());
+               holdingBuilder.investment(investmentBuilder.build());
 
                PortfolioHoldingRecord portfolioHoldingRecord = record.into(PORTFOLIO_HOLDING);
                PartialHolding.Builder partialHoldingBuilder = new PartialHolding.Builder()

@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends org.jooq.impl.SchemaImpl {
 
-	private static final long serialVersionUID = -2055495130;
+	private static final long serialVersionUID = -266299008;
 
 	/**
 	 * The reference instance of <code>PUBLIC</code>
@@ -39,14 +39,14 @@ public class Public extends org.jooq.impl.SchemaImpl {
 
 	private final java.util.List<org.jooq.Sequence<?>> getSequences0() {
 		return java.util.Arrays.<org.jooq.Sequence<?>>asList(
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_07CC6EE5_3569_4FCB_92FF_D3770C348011,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_612EB39C_343A_4C48_8794_9D2C7DB3E5BD,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_74F9534D_F18E_46B7_AD7B_F77DF18DEFAD,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_7E94434E_8725_45C2_A3B0_775A4FFCC90F,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_951C860E_B547_42C4_8A69_71CB61FFD321,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_A2526445_5AAF_4009_8F38_F9D999F314A0,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_A45405A3_0311_4750_84D6_ECE04981E54B,
-			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_BBB324E9_2A3B_4649_99CF_EF3AB2EDF6DB);
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_2F612E7D_FBA8_4856_A637_10A14BD2CDB3,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_611DC3FD_13E6_4748_B218_FB7DF7508ACD,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_64CD06AE_66B6_4F8A_A1A2_971397027686,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_77949C07_65E9_4E33_91E7_F69A5A39B6FC,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_8B2B9179_CB6B_4E27_A957_17E373E7526C,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_A273E126_DB28_494A_9A6E_F2AEB7CE79CA,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_C13148E4_DC33_456F_AAE1_00ACE342C27F,
+			com.voodooloo.bsmart.generated.Sequences.SYSTEM_SEQUENCE_C76BAD4B_A27D_4CF7_86F4_1FF5119B3AEA);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class Public extends org.jooq.impl.SchemaImpl {
 			com.voodooloo.bsmart.generated.tables.SchemaVersion.SCHEMA_VERSION,
 			com.voodooloo.bsmart.generated.tables.InvestmentType.INVESTMENT_TYPE,
 			com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT,
-			com.voodooloo.bsmart.generated.tables.Fund.FUND,
+			com.voodooloo.bsmart.generated.tables.MutualFund.MUTUAL_FUND,
 			com.voodooloo.bsmart.generated.tables.Category.CATEGORY,
 			com.voodooloo.bsmart.generated.tables.InvestmentCategory.INVESTMENT_CATEGORY,
 			com.voodooloo.bsmart.generated.tables.Firm.FIRM,

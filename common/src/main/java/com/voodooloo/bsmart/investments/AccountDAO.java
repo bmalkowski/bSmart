@@ -32,8 +32,7 @@ public class AccountDAO {
 
         ImmutableList.Builder<Account> accounts = ImmutableList.builder();
         context.select()
-               .from(ACCOUNT.join(HOLDING)
-                            .onKey())
+               .from(ACCOUNT.join(HOLDING).onKey())
                .fetchGroups(ACCOUNT)
                .forEach((accountRecord, records) -> {
                    ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
@@ -42,15 +41,21 @@ public class AccountDAO {
 
                        HoldingRecord holdingRecord = record.into(HOLDING);
                        Holding.Builder holdingBuilder = builderFrom(holdingRecord);
-                       holdingBuilder.fund(investment);
+                       holdingBuilder.investment(investment);
                        holdings.add(holdingBuilder.build());
                    });
 
                    Account.Builder builder = builderFrom(accountRecord);
+                   builder.firm(findFirm(accountRecord.getFirmId()));
                    builder.investments(holdings.build());
                    accounts.add(builder.build());
                });
         return accounts.build();
+    }
+
+    Firm findFirm(Integer id) {
+        FirmRecord record = context.selectFrom(FIRM).where(FIRM.ID.eq(id)).fetchOne();
+        return builderFrom(record).build();
     }
 
     Investment findInvestment(Integer id) {
@@ -86,6 +91,11 @@ public class AccountDAO {
     Account.Builder builderFrom(AccountRecord record) {
         return new Account.Builder().id(record.getId())
                                     .name(record.getName());
+    }
+
+    Firm.Builder builderFrom(FirmRecord record) {
+        return new Firm.Builder().id(record.getId())
+                                 .name(record.getName());
     }
 
     Holding.Builder builderFrom(HoldingRecord record) {

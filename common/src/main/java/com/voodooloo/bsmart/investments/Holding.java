@@ -40,7 +40,7 @@ public class Holding {
             return this;
         }
 
-        public Builder fund(Investment investment) {
+        public Builder investment(Investment investment) {
             this.investment = investment;
             return this;
         }

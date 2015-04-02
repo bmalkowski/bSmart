@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Firm extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.FirmRecord> {
 
-	private static final long serialVersionUID = 1228004452;
+	private static final long serialVersionUID = -1655334530;
 
 	/**
 	 * The reference instance of <code>PUBLIC.FIRM</code>
@@ -76,7 +76,7 @@ public class Firm extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated
 	 */
 	@Override
 	public org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord> getPrimaryKey() {
-		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_20;
+		return com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Firm extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_20);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.FirmRecord>>asList(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2);
 	}
 
 	/**

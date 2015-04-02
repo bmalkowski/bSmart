@@ -16,7 +16,7 @@ CREATE TABLE investment (
     FOREIGN KEY (investment_type_id) REFERENCES investment_type(id)
 );
 
-CREATE TABLE fund (
+CREATE TABLE mutual_fund (
     id INTEGER not null,
     expense_ratio DECIMAL(3, 2) not null,
     PRIMARY KEY (id),
@@ -29,8 +29,8 @@ CREATE TABLE category (
     PRIMARY KEY (id)
 );
 
-INSERT INTO category (name) VALUES ('Total US Market');
-INSERT INTO category (name) VALUES ('Total Bond Market');
+INSERT INTO category (name) VALUES ('US Stocks');
+INSERT INTO category (name) VALUES ('US Bonds');
 
 CREATE TABLE investment_category (
     investment_id INTEGER not null,

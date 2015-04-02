@@ -26,6 +26,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         ViewController<Parent, AppController> viewController = fxmlProvider.load("layouts/app.fxml");
         Scene scene = new Scene(viewController.view, 1024, 768);
+        scene.getStylesheets().add("css/app.css");
 
         primaryStage.setTitle("bSmart");
         primaryStage.setScene(scene);

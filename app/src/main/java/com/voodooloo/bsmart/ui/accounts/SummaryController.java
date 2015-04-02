@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.joda.money.BigMoney;
@@ -30,7 +29,6 @@ public class SummaryController {
 
     @FXML VBox root;
 
-    @FXML HBox header;
     @FXML Text nameText;
     @FXML Text valueText;
     @FXML Text firmText;
@@ -73,7 +71,7 @@ public class SummaryController {
 
         nameText.setText(account.name);
         valueText.setText(formatter.formatAsCurrency(accountValue));
-//        firmText.setText(account.firm.name);
+        firmText.setText(account.firm.name);
 
         ObservableList<Holding> holdings = FXCollections.observableArrayList(account.holdings);
         summary.setItems(holdings);

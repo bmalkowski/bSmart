@@ -32,9 +32,9 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.Investment INVESTMENT = com.voodooloo.bsmart.generated.tables.Investment.INVESTMENT;
 
 	/**
-	 * The table PUBLIC.FUND
+	 * The table PUBLIC.MUTUAL_FUND
 	 */
-	public static final com.voodooloo.bsmart.generated.tables.Fund FUND = com.voodooloo.bsmart.generated.tables.Fund.FUND;
+	public static final com.voodooloo.bsmart.generated.tables.MutualFund MUTUAL_FUND = com.voodooloo.bsmart.generated.tables.MutualFund.MUTUAL_FUND;
 
 	/**
 	 * The table PUBLIC.CATEGORY

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 
@@ -28,10 +29,10 @@ public class AccountsController {
     @FXML TableColumn<Account, String> totalColumn;
 
     @Inject
-    public AccountsController(AccountDAO accountDAO, FXMLProvider fxmlProvider, EventBus eventBus) {
-        this.accountDAO = accountDAO;
+    public AccountsController(FXMLProvider fxmlProvider, DSLContext context, EventBus eventBus) {
         this.fxmlProvider = fxmlProvider;
         this.eventBus = eventBus;
+        accountDAO = new AccountDAO(context, eventBus);
         formatter = new Formatter();
     }
 

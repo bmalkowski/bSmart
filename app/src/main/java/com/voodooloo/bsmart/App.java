@@ -18,7 +18,7 @@ public class App extends Application {
     @Inject FXMLProvider fxmlProvider;
 
     public App() {
-        objectGraph = ObjectGraph.create(new DataModule(), new AppModule(this));
+        objectGraph = ObjectGraph.create(new AppModule(this));
         objectGraph.inject(this);
     }
 

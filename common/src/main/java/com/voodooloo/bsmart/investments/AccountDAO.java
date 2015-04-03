@@ -2,21 +2,17 @@ package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.generated.tables.records.*;
-import org.joda.money.BigMoney;
-import org.joda.money.CurrencyUnit;
+import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
+import com.voodooloo.bsmart.generated.tables.records.HoldingRecord;
 import org.jooq.DSLContext;
 
-import javax.inject.Inject;
-import java.util.ArrayList;
-
-import static com.voodooloo.bsmart.generated.Tables.*;
+import static com.voodooloo.bsmart.generated.Tables.ACCOUNT;
+import static com.voodooloo.bsmart.generated.Tables.HOLDING;
 
 public class AccountDAO {
     final DSLContext context;
     final EventBus bus;
 
-    @Inject
     public AccountDAO(DSLContext context, EventBus bus) {
         this.context = context;
         this.bus = bus;
@@ -29,6 +25,9 @@ public class AccountDAO {
     }
 
     public ImmutableList<Account> findAll() {
+        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        FirmDAO firmDAO = new FirmDAO(context);
+        HoldingDAO holdingDAO = new HoldingDAO();
 
         ImmutableList.Builder<Account> accounts = ImmutableList.builder();
         context.select()
@@ -37,81 +36,24 @@ public class AccountDAO {
                .forEach((accountRecord, records) -> {
                    ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
                    records.forEach(record -> {
-                       Investment investment = findInvestment(record.getValue(HOLDING.INVESTMENT_ID));
+                       Investment investment = investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID));
 
                        HoldingRecord holdingRecord = record.into(HOLDING);
-                       Holding.Builder holdingBuilder = builderFrom(holdingRecord);
+                       Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
                        holdingBuilder.investment(investment);
                        holdings.add(holdingBuilder.build());
                    });
 
                    Account.Builder builder = builderFrom(accountRecord);
-                   builder.firm(findFirm(accountRecord.getFirmId()));
+                   builder.firm(firmDAO.find(accountRecord.getFirmId()));
                    builder.investments(holdings.build());
                    accounts.add(builder.build());
                });
         return accounts.build();
     }
 
-    Firm findFirm(Integer id) {
-        FirmRecord record = context.selectFrom(FIRM).where(FIRM.ID.eq(id)).fetchOne();
-        return builderFrom(record).build();
-    }
-
-    Investment findInvestment(Integer id) {
-        ArrayList<Investment> investments = new ArrayList<>();
-        context.select()
-               .from(INVESTMENT.join(INVESTMENT_CATEGORY.join(CATEGORY)
-                                                        .onKey())
-                               .onKey())
-               .where(INVESTMENT.ID.equal(id))
-               .fetchGroups(INVESTMENT)
-               .forEach((investmentRecord, records) -> {
-                   ImmutableList.Builder<PartialCategory> categories = ImmutableList.builder();
-                   records.forEach(record -> {
-                       CategoryRecord categoryRecord = record.into(CATEGORY);
-                       Category.Builder categoryBuilder = builderFrom(categoryRecord);
-
-                       InvestmentCategoryRecord investmentCategoryRecord = record.into(INVESTMENT_CATEGORY);
-                       PartialCategory.Builder partialCategoryBuilder = new PartialCategory.Builder()
-                               .percentage(investmentCategoryRecord.getPercentage())
-                               .category(categoryBuilder.build());
-
-                       categories.add(partialCategoryBuilder.build());
-                   });
-
-                   Investment.Builder builder = builderFrom(investmentRecord);
-                   builder.partialCategories(categories.build());
-                   investments.add(builder.build());
-               });
-
-        return investments.isEmpty() ? null : investments.get(0);
-    }
-
     Account.Builder builderFrom(AccountRecord record) {
         return new Account.Builder().id(record.getId())
                                     .name(record.getName());
-    }
-
-    Firm.Builder builderFrom(FirmRecord record) {
-        return new Firm.Builder().id(record.getId())
-                                 .name(record.getName());
-    }
-
-    Holding.Builder builderFrom(HoldingRecord record) {
-        return new Holding.Builder().id(record.getId())
-                                    .quantity(record.getQuantity());
-    }
-
-    Category.Builder builderFrom(CategoryRecord record) {
-        return new Category.Builder().id(record.getId())
-                                     .name(record.getName());
-    }
-
-    Investment.Builder builderFrom(InvestmentRecord record) {
-        return new Investment.Builder().id(record.getId())
-                                       .name(record.getName())
-                                       .symbol(record.getSymbol())
-                                       .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()));
     }
 }

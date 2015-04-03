@@ -1,6 +1,6 @@
 package com.voodooloo.bsmart.ui.portfolios;
 
-import com.voodooloo.bsmart.App;
+import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioDAO;
 import javafx.beans.value.ChangeListener;
@@ -13,21 +13,20 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.DialogAction;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
+import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 
 public class PortfolioFactory {
-    final App app;
     final PortfolioDAO dao;
 
     @Inject
-    public PortfolioFactory(App app, PortfolioDAO dao) {
-        this.app = app;
-        this.dao = dao;
+    public PortfolioFactory(DSLContext context, EventBus bus) {
+        dao = new PortfolioDAO(context, bus);
     }
 
     public PortfolioController portfolioController(Portfolio portfolio) {
-        return new PortfolioController(app, dao, portfolio);
+        return new PortfolioController(dao, portfolio);
     }
 
     public void showNewDialog() {

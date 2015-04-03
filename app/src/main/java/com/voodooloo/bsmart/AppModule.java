@@ -32,7 +32,7 @@ import javax.sql.DataSource;
 
         PortfolioFactory.class,
         InvestmentFactory.class,
-}, addsTo = DataModule.class)
+})
 public class AppModule {
     final App app;
 

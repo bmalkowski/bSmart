@@ -1,6 +1,6 @@
 package com.voodooloo.bsmart.ui.investments;
 
-import com.voodooloo.bsmart.App;
+import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.investments.Account;
 import com.voodooloo.bsmart.investments.AccountDAO;
 import com.voodooloo.bsmart.investments.Holding;
@@ -13,13 +13,13 @@ import org.joda.money.Money;
 import org.joda.money.format.MoneyAmountStyle;
 import org.joda.money.format.MoneyFormatter;
 import org.joda.money.format.MoneyFormatterBuilder;
+import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 
 public class InvestmentsController {
-    final App app;
     final AccountDAO accountDAO;
     final NumberFormat quantityFormatter;
     final MoneyFormatter currencyFormatter;
@@ -28,9 +28,8 @@ public class InvestmentsController {
     @FXML VBox accountsBox;
 
     @Inject
-    public InvestmentsController(App app, AccountDAO accountDAO) {
-        this.app = app;
-        this.accountDAO = accountDAO;
+    public InvestmentsController(DSLContext context, EventBus bus) {
+        accountDAO = new AccountDAO(context, bus);
 
         quantityFormatter = NumberFormat.getNumberInstance();
         currencyFormatter = new MoneyFormatterBuilder().appendCurrencySymbolLocalized()

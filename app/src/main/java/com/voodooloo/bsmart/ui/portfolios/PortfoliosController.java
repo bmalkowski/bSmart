@@ -1,5 +1,6 @@
 package com.voodooloo.bsmart.ui.portfolios;
 
+import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.investments.Portfolio;
 import com.voodooloo.bsmart.investments.PortfolioDAO;
 import com.voodooloo.bsmart.ui.utils.Formatter;
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.jooq.DSLContext;
 import org.pmw.tinylog.Logger;
 
 import javax.inject.Inject;
@@ -22,8 +24,8 @@ public class PortfoliosController {
   @FXML TableColumn<Portfolio, String> totalColumn;
 
   @Inject
-  public PortfoliosController(PortfolioDAO portfolioDAO) {
-    this.portfolioDAO = portfolioDAO;
+  public PortfoliosController(DSLContext context, EventBus bus) {
+    portfolioDAO = new PortfolioDAO(context, bus);
     formatter = new Formatter();
   }
 

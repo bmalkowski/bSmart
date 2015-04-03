@@ -1,5 +1,6 @@
 package com.voodooloo.bsmart.ui.accounts;
 
+import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.*;
 import com.voodooloo.bsmart.ui.utils.Formatter;
@@ -14,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -44,9 +46,9 @@ public class SummaryController {
     @FXML TableColumn<Holding, String> valueColumn;
 
     @Inject
-    public SummaryController(App app, AccountDAO accountDAO) {
+    public SummaryController(App app, DSLContext context, EventBus bus) {
         this.app = app;
-        this.accountDAO = accountDAO;
+        accountDAO = new AccountDAO(context, bus);
         formatter = new Formatter();
     }
 

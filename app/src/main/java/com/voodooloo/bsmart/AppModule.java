@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 
         AppController.class,
         PortfoliosController.class,
+        com.voodooloo.bsmart.ui.portfolios.SummaryController.class,
         AccountsController.class,
         SummaryController.class,
         InvestmentsController.class,

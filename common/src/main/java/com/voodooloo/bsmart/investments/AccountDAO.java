@@ -24,6 +24,11 @@ public class AccountDAO {
                .execute();
     }
 
+    public Account find(Integer id) {
+        AccountRecord record = context.selectFrom(ACCOUNT).where(ACCOUNT.ID.eq(id)).fetchOne();
+        return builderFrom(record).build();
+    }
+
     public ImmutableList<Account> findAll() {
         InvestmentDAO investmentDAO = new InvestmentDAO(context);
         FirmDAO firmDAO = new FirmDAO(context);

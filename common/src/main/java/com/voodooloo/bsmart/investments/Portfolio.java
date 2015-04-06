@@ -1,26 +1,46 @@
 package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
+import com.voodooloo.bsmart.utils.GuavaCollectors;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class Portfolio {
   public final Integer id;
   public final String name;
   public final ImmutableList<PartialHolding> partialHoldings;
 
+  final Supplier<BigMoney> value;
+  final Supplier<ImmutableList<Account>> accounts;
+
   private Portfolio(Builder builder) {
     id = builder.id;
     name = builder.name;
     partialHoldings = builder.partialHoldings;
+
+    value = this::supplyValue;
+    accounts = this::supplyAccounts;
   }
 
   public BigMoney value() {
+    return value.get();
+  }
+
+  public ImmutableList<Account> accounts() {
+    return accounts.get();
+  }
+
+  BigMoney supplyValue() {
     return partialHoldings.stream()
                           .map(PartialHolding::value)
                           .reduce(BigMoney.zero(CurrencyUnit.USD), BigMoney::plus);
+  }
+
+  ImmutableList<Account> supplyAccounts() {
+    return partialHoldings.stream().map(partialHolding -> partialHolding.holding.account).distinct().collect(GuavaCollectors.toImmutableList());
   }
 
   @Override

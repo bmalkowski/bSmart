@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
+import java.util.Objects;
+
 public class Account {
     public final Integer id;
     public final String name;
@@ -21,6 +23,23 @@ public class Account {
         return holdings.stream()
                        .map(Holding::value)
                        .reduce(BigMoney.zero(CurrencyUnit.USD), BigMoney::plus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Account other = (Account)obj;
+        return Objects.equals(this.id, other.id);
     }
 
     public static final class Builder {

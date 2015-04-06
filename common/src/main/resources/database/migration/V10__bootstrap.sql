@@ -19,6 +19,6 @@ insert into portfolio (name) values ('Retirement');
 insert into portfolio (name) values ('Emergency');
 
 insert into portfolio_holding (portfolio_id, holding_id, percentage) values (1, 1, 0.5);
-insert into portfolio_holding (portfolio_id, holding_id, percentage) values (1, 2, 1);
+insert into portfolio_holding (portfolio_id, holding_id, percentage) values (1, 3, 1);
 insert into portfolio_holding (portfolio_id, holding_id, percentage) values (2, 1, 0.5);
 

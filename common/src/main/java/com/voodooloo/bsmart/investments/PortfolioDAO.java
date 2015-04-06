@@ -27,11 +27,12 @@ public class PortfolioDAO {
     public ImmutableList<Portfolio> findAll() {
         InvestmentDAO investmentDAO = new InvestmentDAO(context);
         HoldingDAO holdingDAO = new HoldingDAO();
+        AccountDAO accountDAO = new AccountDAO(context, bus);
 
         ImmutableList.Builder<Portfolio> portfolios = ImmutableList.builder();
         context.select()
                .from(PORTFOLIO.join(PORTFOLIO_HOLDING.join(HOLDING)
-                                                     .on(PORTFOLIO_HOLDING.HOLDING_ID.equal(HOLDING.ID)))
+                                                     .onKey())
                               .onKey())
                .fetchGroups(PORTFOLIO)
                .forEach((portfolioRecord, records) -> {
@@ -42,6 +43,7 @@ public class PortfolioDAO {
                        HoldingRecord holdingRecord = record.into(HOLDING);
                        Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
                        holdingBuilder.investment(investment);
+                       holdingBuilder.account(accountDAO.find(holdingRecord.getAccountId()));
 
                        PortfolioHoldingRecord portfolioHoldingRecord = record.into(PORTFOLIO_HOLDING);
                        PartialHolding.Builder partialHoldingBuilder = new PartialHolding.Builder()

@@ -3,6 +3,7 @@ package com.voodooloo.bsmart;
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.accounts.AccountsController;
+import com.voodooloo.bsmart.ui.accounts.ListController;
 import com.voodooloo.bsmart.ui.accounts.SummaryController;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
@@ -26,8 +27,9 @@ import javax.sql.DataSource;
 
         AppController.class,
         PortfoliosController.class,
-        com.voodooloo.bsmart.ui.portfolios.SummaryController.class,
         AccountsController.class,
+        com.voodooloo.bsmart.ui.portfolios.SummaryController.class,
+        ListController.class,
         SummaryController.class,
         InvestmentsController.class,
 

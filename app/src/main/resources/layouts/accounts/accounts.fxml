@@ -1,0 +1,37 @@
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SegmentedButton?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.voodooloo.bsmart.ui.accounts.AccountsController">
+    <top>
+        <GridPane styleClass="header">
+            <Text fx:id="nameText"
+                  styleClass="h1"
+                  GridPane.rowIndex="0"
+                  GridPane.columnIndex="0"/>
+            <Text fx:id="valueText"
+                  styleClass="h2"
+                  GridPane.rowIndex="0"
+                  GridPane.columnIndex="1"
+                  GridPane.halignment="RIGHT"
+                  GridPane.hgrow="ALWAYS"/>
+            <Text fx:id="firmText"
+                  styleClass="h3"
+                  GridPane.rowIndex="1"
+                  GridPane.columnIndex="0"/>
+            <HBox
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="1">
+                <Region HBox.hgrow="ALWAYS"/>
+                <SegmentedButton>
+                    <buttons>
+                        <ToggleButton text="Summary" fx:id="summaryButton" onAction="#onSummary"/>
+                        <ToggleButton text="Transactions" fx:id="transactionsButton" onAction="#onTransactions"/>
+                    </buttons>
+                </SegmentedButton>
+            </HBox>
+        </GridPane>
+    </top>
+</BorderPane>

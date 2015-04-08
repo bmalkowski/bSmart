@@ -1,7 +1,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.voodooloo.bsmart.ui.accounts.AccountsController">
+      fx:controller="com.voodooloo.bsmart.ui.accounts.ListController">
   <TableView fx:id="accountTable">
     <columnResizePolicy>
       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

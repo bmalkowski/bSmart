@@ -1,58 +1,85 @@
 package com.voodooloo.bsmart.ui.accounts;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.investments.Account;
-import com.voodooloo.bsmart.investments.AccountDAO;
-import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.utils.Formatter;
-import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
 import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import org.jooq.DSLContext;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 
 import javax.inject.Inject;
 
 public class AccountsController {
     final FXMLProvider fxmlProvider;
     final EventBus eventBus;
-    final AccountDAO accountDAO;
     final Formatter formatter;
 
-    @FXML TableView<Account> accountTable;
-    @FXML TableColumn<Account, String> nameColumn;
-    @FXML TableColumn<Account, String> totalColumn;
+    Account account;
+
+    @FXML BorderPane root;
+
+    @FXML Text nameText;
+    @FXML Text valueText;
+    @FXML Text firmText;
+
+    @FXML ToggleButton summaryButton;
+    @FXML ToggleButton transactionsButton;
+
 
     @Inject
-    public AccountsController(FXMLProvider fxmlProvider, DSLContext context, EventBus eventBus) {
+    public AccountsController(FXMLProvider fxmlProvider, EventBus eventBus) {
         this.fxmlProvider = fxmlProvider;
         this.eventBus = eventBus;
-        accountDAO = new AccountDAO(context, eventBus);
         formatter = new Formatter();
     }
 
     @FXML
     public void initialize() {
-        accountTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                ViewController<Node, SummaryController> viewController = fxmlProvider.load("layouts/accounts/summary.fxml");
-                viewController.controller.setAccount(newValue);
-                eventBus.post(new AppController.Center(viewController));
-            }
-        });
-
-        nameColumn.setCellValueFactory(new SimpleValueFactory<>(account -> account.name));
-        totalColumn.setCellValueFactory(new SimpleValueFactory<>(account -> formatter.formatAsCurrency(account.value())));
-        updateAccounts();
+        eventBus.register(this);
     }
 
-    void updateAccounts() {
-        ObservableList<Account> accounts = FXCollections.observableArrayList(accountDAO.findAll());
-        accountTable.setItems(accounts);
+    public void setAccount(Account account) {
+        this.account = account;
+
+        nameText.setText(account.name);
+        valueText.setText(formatter.formatAsCurrency(account.value()));
+        firmText.setText(account.firm.name);
+
+        summaryButton.fire();
+    }
+
+    public void onSummary(ActionEvent event)
+    {
+        ViewController<Node, SummaryController> summaryController = fxmlProvider.load("layouts/accounts/summary.fxml");
+        summaryController.controller.setAccount(account);
+        root.setCenter(summaryController.view);
+    }
+
+    public void onTransactions(ActionEvent event)
+    {
+//        ViewController<Node, SummaryController> summaryController = fxmlProvider.load("layouts/accounts/summary.fxml");
+//        summaryController.controller.setAccount(account);
+//        root.setCenter(summaryController.view);
+        root.setCenter(null);
+    }
+
+    @Subscribe
+    public void onEvent(Center center) {
+        root.setCenter(center.viewController.view);
+    }
+
+    public static class Center
+    {
+        public final ViewController<Node, ?> viewController;
+
+        public Center(ViewController<Node, ?> viewController) {
+            this.viewController = viewController;
+        }
     }
 }

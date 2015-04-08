@@ -12,7 +12,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.jooq.DSLContext;
@@ -30,10 +29,6 @@ public class SummaryController {
     Account account;
 
     @FXML VBox root;
-
-    @FXML Text nameText;
-    @FXML Text valueText;
-    @FXML Text firmText;
 
     @FXML PieChart categories;
     @FXML PieChart allocations;
@@ -69,11 +64,6 @@ public class SummaryController {
 
     public void setAccount(Account account) {
         this.account = account;
-        BigMoney accountValue = account.value();
-
-        nameText.setText(account.name);
-        valueText.setText(formatter.formatAsCurrency(accountValue));
-        firmText.setText(account.firm.name);
 
         ObservableList<Holding> holdings = FXCollections.observableArrayList(account.holdings);
         summary.setItems(holdings);
@@ -83,7 +73,7 @@ public class SummaryController {
         ObservableList<PieChart.Data> allocationsData = allocations.getData();
         allocationsData.clear();
         for (Holding holding : holdings) {
-            BigDecimal percentage = holding.value().getAmount().divide(accountValue.getAmount(), BigDecimal.ROUND_HALF_EVEN);
+            BigDecimal percentage = holding.value().getAmount().divide(account.value().getAmount(), BigDecimal.ROUND_HALF_EVEN);
             int percent = percentage.multiply(BigDecimal.valueOf(100)).intValue();
             allocationsData.add(new PieChart.Data(holding.investment.symbol + " (" + percent + "%)", percent));
         }

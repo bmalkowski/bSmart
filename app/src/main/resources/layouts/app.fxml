@@ -11,7 +11,7 @@
       </TitledPane>
 
       <TitledPane text="Accounts">
-        <fx:include source="accounts.fxml" />
+        <fx:include source="accounts/list.fxml" />
       </TitledPane>
     </VBox>
   </left>

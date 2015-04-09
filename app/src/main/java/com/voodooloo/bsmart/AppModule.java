@@ -5,6 +5,7 @@ import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.accounts.AccountsController;
 import com.voodooloo.bsmart.ui.accounts.ListController;
 import com.voodooloo.bsmart.ui.accounts.SummaryController;
+import com.voodooloo.bsmart.ui.accounts.TransactionsController;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
 import com.voodooloo.bsmart.ui.portfolios.PortfolioFactory;
@@ -26,11 +27,15 @@ import javax.sql.DataSource;
         App.class,
 
         AppController.class,
+
         PortfoliosController.class,
-        AccountsController.class,
         com.voodooloo.bsmart.ui.portfolios.SummaryController.class,
-        ListController.class,
+
+        AccountsController.class,
         SummaryController.class,
+        TransactionsController.class,
+        ListController.class,
+
         InvestmentsController.class,
 
         PortfolioFactory.class,

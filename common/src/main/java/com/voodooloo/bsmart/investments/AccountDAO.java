@@ -2,12 +2,14 @@ package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
+import com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord;
 import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
 import com.voodooloo.bsmart.generated.tables.records.HoldingRecord;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.jooq.DSLContext;
 
-import static com.voodooloo.bsmart.generated.Tables.ACCOUNT;
-import static com.voodooloo.bsmart.generated.Tables.HOLDING;
+import static com.voodooloo.bsmart.generated.Tables.*;
 
 public class AccountDAO {
     final DSLContext context;
@@ -41,24 +43,46 @@ public class AccountDAO {
                .forEach((accountRecord, records) -> {
                    ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
                    records.forEach(record -> {
-                       Investment investment = investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID));
-
                        HoldingRecord holdingRecord = record.into(HOLDING);
                        Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
-                       holdingBuilder.investment(investment);
+                       holdingBuilder.investment(investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID)));
                        holdings.add(holdingBuilder.build());
                    });
 
                    Account.Builder builder = builderFrom(accountRecord);
                    builder.firm(firmDAO.find(accountRecord.getFirmId()));
-                   builder.investments(holdings.build());
+                   builder.holdings(holdings.build());
                    accounts.add(builder.build());
                });
         return accounts.build();
     }
 
+    public ImmutableList<Transaction> transactionsFor(Account account) {
+        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+
+        ImmutableList.Builder<Transaction> transactions = ImmutableList.builder();
+        context.select()
+               .from(ACCOUNT_JOURNAL)
+               .where(ACCOUNT_JOURNAL.ACCOUNT_ID.eq(account.id))
+               .forEach(record -> {
+                   AccountJournalRecord accountJournalRecord = record.into(ACCOUNT_JOURNAL);
+                   Transaction.Builder builder = builderFrom(accountJournalRecord);
+                   builder.investment(investmentDAO.find(record.getValue(ACCOUNT_JOURNAL.INVESTMENT_ID)));
+                   transactions.add(builder.build());
+               });
+        return transactions.build();
+    }
+
     Account.Builder builderFrom(AccountRecord record) {
         return new Account.Builder().id(record.getId())
                                     .name(record.getName());
+    }
+
+    Transaction.Builder builderFrom(AccountJournalRecord record) {
+        return new Transaction.Builder().id(record.getId())
+                                        .tradeDate(record.getTradeDate().toLocalDateTime())
+                                        .reason(record.getReason())
+                                        .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()))
+                                        .quantity(record.getQuantity());
     }
 }

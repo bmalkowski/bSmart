@@ -11,12 +11,14 @@ public class Account {
     public final String name;
     public final Firm firm;
     public final ImmutableList<Holding> holdings;
+    public final ImmutableList<Transaction> transactions;
 
     private Account(Builder builder) {
         id = builder.id;
         name = builder.name;
         firm = builder.firm;
         holdings = builder.holdings;
+        transactions = builder.transactions;
     }
 
     public BigMoney value() {
@@ -47,9 +49,11 @@ public class Account {
         private String name;
         private Firm firm;
         private ImmutableList<Holding> holdings;
+        private ImmutableList<Transaction> transactions;
 
         public Builder() {
             holdings = ImmutableList.of();
+            transactions = ImmutableList.of();
         }
 
         public Builder id(Integer id) {
@@ -67,8 +71,13 @@ public class Account {
             return this;
         }
 
-        public Builder investments(ImmutableList<Holding> holdings) {
+        public Builder holdings(ImmutableList<Holding> holdings) {
             this.holdings = holdings;
+            return this;
+        }
+
+        public Builder transactions(ImmutableList<Transaction> transactions) {
+            this.transactions = transactions;
             return this;
         }
 

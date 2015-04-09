@@ -1,7 +1,6 @@
 package com.voodooloo.bsmart.ui.accounts;
 
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.App;
 import com.voodooloo.bsmart.investments.*;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
@@ -22,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SummaryController {
-    final App app;
     final AccountDAO accountDAO;
     final Formatter formatter;
 
@@ -41,8 +39,7 @@ public class SummaryController {
     @FXML TableColumn<Holding, String> valueColumn;
 
     @Inject
-    public SummaryController(App app, DSLContext context, EventBus bus) {
-        this.app = app;
+    public SummaryController(DSLContext context, EventBus bus) {
         accountDAO = new AccountDAO(context, bus);
         formatter = new Formatter();
     }

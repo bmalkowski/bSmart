@@ -1,8 +1,8 @@
 package com.voodooloo.bsmart.ui.accounts;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.investments.Account;
+import com.voodooloo.bsmart.investments.AccountDAO;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ViewController;
@@ -12,12 +12,13 @@ import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 
 public class AccountsController {
     final FXMLProvider fxmlProvider;
-    final EventBus eventBus;
+    final AccountDAO accountDAO;
     final Formatter formatter;
 
     Account account;
@@ -31,17 +32,15 @@ public class AccountsController {
     @FXML ToggleButton summaryButton;
     @FXML ToggleButton transactionsButton;
 
-
     @Inject
-    public AccountsController(FXMLProvider fxmlProvider, EventBus eventBus) {
+    public AccountsController(FXMLProvider fxmlProvider, DSLContext context, EventBus bus) {
         this.fxmlProvider = fxmlProvider;
-        this.eventBus = eventBus;
+        accountDAO = new AccountDAO(context, bus);
         formatter = new Formatter();
     }
 
     @FXML
     public void initialize() {
-        eventBus.register(this);
     }
 
     public void setAccount(Account account) {
@@ -56,30 +55,15 @@ public class AccountsController {
 
     public void onSummary(ActionEvent event)
     {
-        ViewController<Node, SummaryController> summaryController = fxmlProvider.load("layouts/accounts/summary.fxml");
-        summaryController.controller.setAccount(account);
-        root.setCenter(summaryController.view);
+        ViewController<Node, SummaryController> viewController = fxmlProvider.load("layouts/accounts/summary.fxml");
+        viewController.controller.setAccount(account);
+        root.setCenter(viewController.view);
     }
 
     public void onTransactions(ActionEvent event)
     {
-//        ViewController<Node, SummaryController> summaryController = fxmlProvider.load("layouts/accounts/summary.fxml");
-//        summaryController.controller.setAccount(account);
-//        root.setCenter(summaryController.view);
-        root.setCenter(null);
-    }
-
-    @Subscribe
-    public void onEvent(Center center) {
-        root.setCenter(center.viewController.view);
-    }
-
-    public static class Center
-    {
-        public final ViewController<Node, ?> viewController;
-
-        public Center(ViewController<Node, ?> viewController) {
-            this.viewController = viewController;
-        }
+        ViewController<Node, TransactionsController> viewController = fxmlProvider.load("layouts/accounts/transactions.fxml");
+        viewController.controller.setTransactions(accountDAO.transactionsFor(account));
+        root.setCenter(viewController.view);
     }
 }

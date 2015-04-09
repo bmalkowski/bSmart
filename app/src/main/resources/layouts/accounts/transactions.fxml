@@ -1,0 +1,15 @@
+<?import javafx.scene.control.*?>
+<TableView
+        xmlns:fx="http://javafx.com/fxml"
+        fx:id="transactionsView"
+        fx:controller="com.voodooloo.bsmart.ui.accounts.TransactionsController">
+    <columns>
+        <TableColumn fx:id="nameColumn" text="Name"/>
+        <TableColumn fx:id="symbolColumn" text="Symbol"/>
+        <TableColumn fx:id="dateColumn" text="Date"/>
+        <TableColumn fx:id="reasonColumn" text="Reason"/>
+        <TableColumn fx:id="priceColumn" text="Price"/>
+        <TableColumn fx:id="quantityColumn" text="Quantity"/>
+        <TableColumn fx:id="valueColumn" text="Value"/>
+    </columns>
+</TableView>

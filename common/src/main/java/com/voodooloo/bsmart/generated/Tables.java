@@ -62,9 +62,9 @@ public class Tables {
 	public static final com.voodooloo.bsmart.generated.tables.Holding HOLDING = com.voodooloo.bsmart.generated.tables.Holding.HOLDING;
 
 	/**
-	 * The table PUBLIC.JOURNAL
+	 * The table PUBLIC.ACCOUNT_JOURNAL
 	 */
-	public static final com.voodooloo.bsmart.generated.tables.Journal JOURNAL = com.voodooloo.bsmart.generated.tables.Journal.JOURNAL;
+	public static final com.voodooloo.bsmart.generated.tables.AccountJournal ACCOUNT_JOURNAL = com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL;
 
 	/**
 	 * The table PUBLIC.PORTFOLIO

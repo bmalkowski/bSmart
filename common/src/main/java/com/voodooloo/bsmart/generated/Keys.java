@@ -27,7 +27,7 @@ public class Keys {
 	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FirmRecord, java.lang.Integer> IDENTITY_FIRM = Identities0.IDENTITY_FIRM;
 	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountRecord, java.lang.Integer> IDENTITY_ACCOUNT = Identities0.IDENTITY_ACCOUNT;
 	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, java.lang.Integer> IDENTITY_HOLDING = Identities0.IDENTITY_HOLDING;
-	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.JournalRecord, java.lang.Integer> IDENTITY_JOURNAL = Identities0.IDENTITY_JOURNAL;
+	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, java.lang.Integer> IDENTITY_ACCOUNT_JOURNAL = Identities0.IDENTITY_ACCOUNT_JOURNAL;
 	public static final org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord, java.lang.Integer> IDENTITY_PORTFOLIO = Identities0.IDENTITY_PORTFOLIO;
 
 	// -------------------------------------------------------------------------
@@ -44,7 +44,7 @@ public class Keys {
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_E = UniqueKeys0.CONSTRAINT_E;
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_6 = UniqueKeys0.CONSTRAINT_6;
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_6BDE = UniqueKeys0.CONSTRAINT_6BDE;
-	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord> CONSTRAINT_D = UniqueKeys0.CONSTRAINT_D;
+	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord> CONSTRAINT_A = UniqueKeys0.CONSTRAINT_A;
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E8 = UniqueKeys0.CONSTRAINT_E8;
 	public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord> CONSTRAINT_E42 = UniqueKeys0.CONSTRAINT_E42;
 
@@ -59,8 +59,8 @@ public class Keys {
 	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_E4 = ForeignKeys0.CONSTRAINT_E4;
 	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_6B = ForeignKeys0.CONSTRAINT_6B;
 	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_6BD = ForeignKeys0.CONSTRAINT_6BD;
-	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_D6 = ForeignKeys0.CONSTRAINT_D6;
-	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_D63 = ForeignKeys0.CONSTRAINT_D63;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_A1 = ForeignKeys0.CONSTRAINT_A1;
+	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_A16 = ForeignKeys0.CONSTRAINT_A16;
 	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord, com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E42F = ForeignKeys0.CONSTRAINT_E42F;
 	public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord, com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_E42F9 = ForeignKeys0.CONSTRAINT_E42F9;
 
@@ -75,7 +75,7 @@ public class Keys {
 		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.FirmRecord, java.lang.Integer> IDENTITY_FIRM = createIdentity(com.voodooloo.bsmart.generated.tables.Firm.FIRM, com.voodooloo.bsmart.generated.tables.Firm.FIRM.ID);
 		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountRecord, java.lang.Integer> IDENTITY_ACCOUNT = createIdentity(com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.ID);
 		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, java.lang.Integer> IDENTITY_HOLDING = createIdentity(com.voodooloo.bsmart.generated.tables.Holding.HOLDING, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.ID);
-		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.JournalRecord, java.lang.Integer> IDENTITY_JOURNAL = createIdentity(com.voodooloo.bsmart.generated.tables.Journal.JOURNAL, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL.ID);
+		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, java.lang.Integer> IDENTITY_ACCOUNT_JOURNAL = createIdentity(com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL.ID);
 		public static org.jooq.Identity<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord, java.lang.Integer> IDENTITY_PORTFOLIO = createIdentity(com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO, com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO.ID);
 	}
 
@@ -90,7 +90,7 @@ public class Keys {
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_E = createUniqueKey(com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.ID);
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_6 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Holding.HOLDING, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.ID);
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_6BDE = createUniqueKey(com.voodooloo.bsmart.generated.tables.Holding.HOLDING, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.ACCOUNT_ID, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.INVESTMENT_ID);
-		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord> CONSTRAINT_D = createUniqueKey(com.voodooloo.bsmart.generated.tables.Journal.JOURNAL, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL.ID);
+		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord> CONSTRAINT_A = createUniqueKey(com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL.ID);
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E8 = createUniqueKey(com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO, com.voodooloo.bsmart.generated.tables.Portfolio.PORTFOLIO.ID);
 		public static final org.jooq.UniqueKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord> CONSTRAINT_E42 = createUniqueKey(com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING.PORTFOLIO_ID, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING.HOLDING_ID);
 	}
@@ -103,8 +103,8 @@ public class Keys {
 		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountRecord, com.voodooloo.bsmart.generated.tables.records.FirmRecord> CONSTRAINT_E4 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_2, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT, com.voodooloo.bsmart.generated.tables.Account.ACCOUNT.FIRM_ID);
 		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_6B = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E, com.voodooloo.bsmart.generated.tables.Holding.HOLDING, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.ACCOUNT_ID);
 		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.HoldingRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_6BD = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_8, com.voodooloo.bsmart.generated.tables.Holding.HOLDING, com.voodooloo.bsmart.generated.tables.Holding.HOLDING.INVESTMENT_ID);
-		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_D6 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL.ACCOUNT_ID);
-		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.JournalRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_D63 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_8, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL, com.voodooloo.bsmart.generated.tables.Journal.JOURNAL.INVESTMENT_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, com.voodooloo.bsmart.generated.tables.records.AccountRecord> CONSTRAINT_A1 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL.ACCOUNT_ID);
+		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, com.voodooloo.bsmart.generated.tables.records.InvestmentRecord> CONSTRAINT_A16 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_8, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL, com.voodooloo.bsmart.generated.tables.AccountJournal.ACCOUNT_JOURNAL.INVESTMENT_ID);
 		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord, com.voodooloo.bsmart.generated.tables.records.PortfolioRecord> CONSTRAINT_E42F = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_E8, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING.PORTFOLIO_ID);
 		public static final org.jooq.ForeignKey<com.voodooloo.bsmart.generated.tables.records.PortfolioHoldingRecord, com.voodooloo.bsmart.generated.tables.records.HoldingRecord> CONSTRAINT_E42F9 = createForeignKey(com.voodooloo.bsmart.generated.Keys.CONSTRAINT_6, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING, com.voodooloo.bsmart.generated.tables.PortfolioHolding.PORTFOLIO_HOLDING.HOLDING_ID);
 	}

@@ -1,18 +1,21 @@
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:id="root"
             fx:controller="com.voodooloo.bsmart.ui.AppController">
   <left>
     <VBox>
-      <TitledPane text="Portfolios">
-        <fx:include source="portfolios.fxml" />
-      </TitledPane>
-
-      <TitledPane text="Accounts">
-        <fx:include source="accounts/list.fxml" />
-      </TitledPane>
+      <TitledPane text="Portfolios" fx:id="portfoliosPane"/>
+      <TitledPane text="Accounts" fx:id="accountsPane"/>
     </VBox>
   </left>
+  <right>
+    <VBox>
+      <Text styleClass="h3" text="Options"/>
+      <Button text="Add Transaction" onAction="#onAddTransaction"/>
+    </VBox>
+  </right>
 </BorderPane>

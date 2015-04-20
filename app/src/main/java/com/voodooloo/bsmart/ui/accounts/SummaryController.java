@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.investments.*;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
+import com.voodooloo.bsmart.utils.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SummaryController {
+public class SummaryController implements Controller {
     final AccountDAO accountDAO;
     final Formatter formatter;
 

@@ -1,11 +1,13 @@
 package com.voodooloo.bsmart.ui.accounts;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.investments.Account;
 import com.voodooloo.bsmart.investments.AccountDAO;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
+import com.voodooloo.bsmart.utils.BusController;
 import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ViewController;
 import javafx.collections.FXCollections;
@@ -18,9 +20,8 @@ import org.jooq.DSLContext;
 
 import javax.inject.Inject;
 
-public class ListController {
+public class ListController extends BusController {
     final FXMLProvider fxmlProvider;
-    final EventBus eventBus;
     final AccountDAO accountDAO;
     final Formatter formatter;
 
@@ -29,10 +30,11 @@ public class ListController {
     @FXML TableColumn<Account, String> totalColumn;
 
     @Inject
-    public ListController(FXMLProvider fxmlProvider, DSLContext context, EventBus eventBus) {
+    public ListController(FXMLProvider fxmlProvider, DSLContext context, EventBus bus) {
+        super(bus);
+
         this.fxmlProvider = fxmlProvider;
-        this.eventBus = eventBus;
-        accountDAO = new AccountDAO(context, eventBus);
+        accountDAO = new AccountDAO(context, bus);
         formatter = new Formatter();
     }
 
@@ -41,8 +43,8 @@ public class ListController {
         accountTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 ViewController<Node, AccountsController> viewController = fxmlProvider.load("layouts/accounts/accounts.fxml");
-                viewController.controller.setAccount(newValue);
-                eventBus.post(new AppController.Center(viewController));
+                viewController.controller.updateAccount(newValue);
+                post(new AppController.Center(viewController));
             }
         });
 
@@ -51,8 +53,14 @@ public class ListController {
         updateAccounts();
     }
 
+    @Subscribe
+    public void onEvent(Account account) {
+        updateAccounts();
+    }
+
     void updateAccounts() {
         ObservableList<Account> accounts = FXCollections.observableArrayList(accountDAO.findAll());
+        accountTable.getItems().clear();
         accountTable.setItems(accounts);
     }
 }

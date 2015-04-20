@@ -6,6 +6,7 @@ import com.voodooloo.bsmart.investments.PortfolioDAO;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
+import com.voodooloo.bsmart.utils.BusController;
 import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ViewController;
 import javafx.collections.FXCollections;
@@ -19,9 +20,8 @@ import org.pmw.tinylog.Logger;
 
 import javax.inject.Inject;
 
-public class PortfoliosController {
+public class PortfoliosController extends BusController {
   final FXMLProvider fxmlProvider;
-  final EventBus eventBus;
   final PortfolioDAO portfolioDAO;
   final Formatter formatter;
 
@@ -30,10 +30,11 @@ public class PortfoliosController {
   @FXML TableColumn<Portfolio, String> totalColumn;
 
   @Inject
-  public PortfoliosController(FXMLProvider fxmlProvider, DSLContext context, EventBus eventBus) {
+  public PortfoliosController(FXMLProvider fxmlProvider, DSLContext context, EventBus bus) {
+    super(bus);
+
     this.fxmlProvider = fxmlProvider;
-    this.eventBus = eventBus;
-    portfolioDAO = new PortfolioDAO(context, eventBus);
+    portfolioDAO = new PortfolioDAO(context, bus);
     formatter = new Formatter();
   }
 
@@ -43,7 +44,7 @@ public class PortfoliosController {
       if (newValue != null) {
         ViewController<Node, SummaryController> viewController = fxmlProvider.load("layouts/portfolios/summary.fxml");
         viewController.controller.setPortfolio(newValue);
-        eventBus.post(new AppController.Center(viewController));
+        post(new AppController.Center(viewController));
       }
     });
 

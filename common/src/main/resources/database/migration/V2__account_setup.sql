@@ -27,7 +27,7 @@ CREATE TABLE account_journal (
     id INTEGER not null auto_increment,
     account_id INTEGER not null,
     investment_id INTEGER not null,
-    trade_date DATETIME not null,
+    trade_date DATE not null,
     reason VARCHAR(200) not null,
     quantity DECIMAL(13, 4) not null,
     price DECIMAL(9, 4) not null,

@@ -16,7 +16,7 @@ package com.voodooloo.bsmart.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AccountJournal extends org.jooq.impl.TableImpl<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord> {
 
-	private static final long serialVersionUID = 1606970525;
+	private static final long serialVersionUID = -931493435;
 
 	/**
 	 * The reference instance of <code>PUBLIC.ACCOUNT_JOURNAL</code>
@@ -49,7 +49,7 @@ public class AccountJournal extends org.jooq.impl.TableImpl<com.voodooloo.bsmart
 	/**
 	 * The column <code>PUBLIC.ACCOUNT_JOURNAL.TRADE_DATE</code>.
 	 */
-	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, java.sql.Timestamp> TRADE_DATE = createField("TRADE_DATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+	public final org.jooq.TableField<com.voodooloo.bsmart.generated.tables.records.AccountJournalRecord, java.sql.Date> TRADE_DATE = createField("TRADE_DATE", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
 	/**
 	 * The column <code>PUBLIC.ACCOUNT_JOURNAL.REASON</code>.

@@ -3,6 +3,7 @@ package com.voodooloo.bsmart.utils;
 import com.google.common.io.Resources;
 import dagger.ObjectGraph;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import org.pmw.tinylog.Logger;
 
 import javax.inject.Inject;
@@ -17,11 +18,11 @@ public class FXMLProvider {
         this.objectGraph = objectGraph;
     }
 
-    public <V, C> ViewController<V, C> load(String name) {
+    public <V extends Node, C extends Controller> ViewController<V, C> load(String name) {
         return load(Resources.getResource(name));
     }
 
-    public <V, C> ViewController<V, C> load(URL url) {
+    public <V extends Node, C extends Controller> ViewController<V, C> load(URL url) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
         loader.setControllerFactory(this::buildController);

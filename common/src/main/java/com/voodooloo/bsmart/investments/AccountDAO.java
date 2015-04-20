@@ -9,6 +9,9 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.jooq.DSLContext;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 import static com.voodooloo.bsmart.generated.Tables.*;
 
 public class AccountDAO {
@@ -26,9 +29,43 @@ public class AccountDAO {
                .execute();
     }
 
+    public void add(Account account, Transaction transaction) {
+        context.insertInto(ACCOUNT_JOURNAL)
+               .set(ACCOUNT_JOURNAL.ACCOUNT_ID, account.id)
+               .set(ACCOUNT_JOURNAL.INVESTMENT_ID, transaction.investment.id)
+               .set(ACCOUNT_JOURNAL.TRADE_DATE, Date.valueOf(transaction.tradeDate))
+               .set(ACCOUNT_JOURNAL.REASON, transaction.reason)
+               .set(ACCOUNT_JOURNAL.QUANTITY, transaction.quantity)
+               .set(ACCOUNT_JOURNAL.PRICE, transaction.price.getAmount())
+               .execute();
+        bus.post(find(account.id));
+    }
+
     public Account find(Integer id) {
-        AccountRecord record = context.selectFrom(ACCOUNT).where(ACCOUNT.ID.eq(id)).fetchOne();
-        return builderFrom(record).build();
+        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        FirmDAO firmDAO = new FirmDAO(context);
+        HoldingDAO holdingDAO = new HoldingDAO();
+
+        ArrayList<Account> accounts = new ArrayList<>();
+        context.select()
+               .from(ACCOUNT.join(HOLDING).onKey())
+               .where(ACCOUNT.ID.equal(id))
+               .fetchGroups(ACCOUNT)
+               .forEach((accountRecord, records) -> {
+                   ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
+                   records.forEach(record -> {
+                       HoldingRecord holdingRecord = record.into(HOLDING);
+                       Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
+                       holdingBuilder.investment(investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID)));
+                       holdings.add(holdingBuilder.build());
+                   });
+
+                   Account.Builder builder = builderFrom(accountRecord);
+                   builder.firm(firmDAO.find(accountRecord.getFirmId()));
+                   builder.holdings(holdings.build());
+                   accounts.add(builder.build());
+               });
+        return accounts.isEmpty() ? null : accounts.get(0);
     }
 
     public ImmutableList<Account> findAll() {
@@ -80,7 +117,7 @@ public class AccountDAO {
 
     Transaction.Builder builderFrom(AccountJournalRecord record) {
         return new Transaction.Builder().id(record.getId())
-                                        .tradeDate(record.getTradeDate().toLocalDateTime())
+                                        .tradeDate(record.getTradeDate().toLocalDate())
                                         .reason(record.getReason())
                                         .price(BigMoney.of(CurrencyUnit.USD, record.getPrice()))
                                         .quantity(record.getQuantity());

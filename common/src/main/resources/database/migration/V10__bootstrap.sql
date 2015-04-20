@@ -10,10 +10,10 @@ insert into firm (name) values ('Fidelity');
 insert into account (firm_id, name) values (1, 'An IRA');
 insert into account (firm_id, name) values (1, 'Another IRA');
 
-insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (1, 1, CURRENT_DATE(), 'buy', 100, 10.15);
-insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (1, 2, CURRENT_DATE(), 'buy', 50, 15.12);
-insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (2, 2, CURRENT_DATE(), 'buy', 75, 3.34);
-insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (2, 2, CURRENT_DATE(), 'buy', 50, 20.15);
+insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (1, 1, CURRENT_TIMESTAMP(), 'buy', 100, 10.15);
+insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (1, 2, CURRENT_TIMESTAMP(), 'buy', 50, 15.12);
+insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (2, 2, CURRENT_TIMESTAMP(), 'buy', 75, 3.34);
+insert into account_journal (account_id, investment_id, trade_date, reason, quantity, price) values (2, 2, CURRENT_TIMESTAMP(), 'buy', 50, 20.15);
 
 insert into portfolio (name) values ('Retirement');
 insert into portfolio (name) values ('Emergency');

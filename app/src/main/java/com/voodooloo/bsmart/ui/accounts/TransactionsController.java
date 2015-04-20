@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.voodooloo.bsmart.investments.Transaction;
 import com.voodooloo.bsmart.ui.utils.Formatter;
 import com.voodooloo.bsmart.ui.utils.SimpleValueFactory;
+import com.voodooloo.bsmart.utils.Controller;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -11,7 +12,7 @@ import javafx.scene.control.TableView;
 
 import javax.inject.Inject;
 
-public class TransactionsController {
+public class TransactionsController implements Controller {
     final Formatter formatter;
 
     @FXML TableView<Transaction> transactionsView;

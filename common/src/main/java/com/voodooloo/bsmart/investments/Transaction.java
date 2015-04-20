@@ -3,13 +3,13 @@ package com.voodooloo.bsmart.investments;
 import org.joda.money.BigMoney;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Transaction {
     public final Integer id;
     public final Investment investment;
-    public final LocalDateTime tradeDate;
+    public final LocalDate tradeDate;
     public final String reason;
     public final BigDecimal quantity;
     public final BigMoney price;
@@ -47,7 +47,7 @@ public class Transaction {
     public static final class Builder {
         private Integer id;
         private Investment investment;
-        private LocalDateTime tradeDate;
+        private LocalDate tradeDate;
         private String reason;
         private BigDecimal quantity;
         private BigMoney price;
@@ -65,7 +65,7 @@ public class Transaction {
             return this;
         }
 
-        public Builder tradeDate(LocalDateTime tradeDate) {
+        public Builder tradeDate(LocalDate tradeDate) {
             this.tradeDate = tradeDate;
             return this;
         }

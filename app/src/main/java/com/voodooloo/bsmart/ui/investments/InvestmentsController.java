@@ -56,7 +56,7 @@ public class InvestmentsController {
             gridPane.add(new Text(currencyFormatter.print(holdingValue)), 1, row++);
             gridPane.setOnMouseClicked(event -> {
 //                    Node node = app.loadFXML("layouts/summary.fxml");
-//                    node.controller.setAccount(account);
+//                    node.controller.updateAccount(account);
 
             });
 

@@ -10,9 +10,7 @@ import org.jooq.DSLContext;
 
 import java.util.ArrayList;
 
-import static com.voodooloo.bsmart.generated.Tables.CATEGORY;
-import static com.voodooloo.bsmart.generated.Tables.INVESTMENT;
-import static com.voodooloo.bsmart.generated.Tables.INVESTMENT_CATEGORY;
+import static com.voodooloo.bsmart.generated.Tables.*;
 
 public class InvestmentDAO {
     final DSLContext context;
@@ -49,8 +47,37 @@ public class InvestmentDAO {
                    builder.partialCategories(categories.build());
                    investments.add(builder.build());
                });
-
         return investments.isEmpty() ? null : investments.get(0);
+    }
+
+    public ImmutableList<Investment> findAll() {
+        CategoryDAO categoryDAO = new CategoryDAO();
+
+        ImmutableList.Builder<Investment> investments = ImmutableList.builder();
+        context.select()
+               .from(INVESTMENT.join(INVESTMENT_CATEGORY.join(CATEGORY)
+                                                        .onKey())
+                               .onKey())
+               .fetchGroups(INVESTMENT)
+               .forEach((investmentRecord, records) -> {
+                   ImmutableList.Builder<PartialCategory> categories = ImmutableList.builder();
+                   records.forEach(record -> {
+                       CategoryRecord categoryRecord = record.into(CATEGORY);
+                       Category.Builder categoryBuilder = categoryDAO.builderFrom(categoryRecord);
+
+                       InvestmentCategoryRecord investmentCategoryRecord = record.into(INVESTMENT_CATEGORY);
+                       PartialCategory.Builder partialCategoryBuilder = new PartialCategory.Builder()
+                               .percentage(investmentCategoryRecord.getPercentage())
+                               .category(categoryBuilder.build());
+
+                       categories.add(partialCategoryBuilder.build());
+                   });
+
+                   Investment.Builder builder = builderFrom(investmentRecord);
+                   builder.partialCategories(categories.build());
+                   investments.add(builder.build());
+               });
+        return investments.build();
     }
 
     public Investment.Builder builderFrom(InvestmentRecord record) {

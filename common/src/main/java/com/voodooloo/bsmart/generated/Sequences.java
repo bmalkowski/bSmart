@@ -17,42 +17,42 @@ package com.voodooloo.bsmart.generated;
 public class Sequences {
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_132CC96C_FB70_466D_BA46_A00266927BDC</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_5C1CF906_6478_483D_AA16_BE7887FF8E0A</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_132CC96C_FB70_466D_BA46_A00266927BDC = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_132CC96C_FB70_466D_BA46_A00266927BDC", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_5C1CF906_6478_483D_AA16_BE7887FF8E0A = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_5C1CF906_6478_483D_AA16_BE7887FF8E0A", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_1CE9B2A9_F029_4CF3_914A_B6894D8A6A84</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_6E72C71A_B793_4347_99BB_32A80894E392</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_1CE9B2A9_F029_4CF3_914A_B6894D8A6A84 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_1CE9B2A9_F029_4CF3_914A_B6894D8A6A84", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_6E72C71A_B793_4347_99BB_32A80894E392 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_6E72C71A_B793_4347_99BB_32A80894E392", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_29794E5B_FB62_4165_A4E1_B0F0BFFF0D7C</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_78463D3B_F45C_44B3_BD59_6699D918E3CA</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_29794E5B_FB62_4165_A4E1_B0F0BFFF0D7C = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_29794E5B_FB62_4165_A4E1_B0F0BFFF0D7C", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_78463D3B_F45C_44B3_BD59_6699D918E3CA = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_78463D3B_F45C_44B3_BD59_6699D918E3CA", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_2E2D7C86_09B5_4205_9424_1EA95974190A</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_8DDCDABF_72F4_477B_9C28_80ED6F237907</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_2E2D7C86_09B5_4205_9424_1EA95974190A = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_2E2D7C86_09B5_4205_9424_1EA95974190A", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_8DDCDABF_72F4_477B_9C28_80ED6F237907 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_8DDCDABF_72F4_477B_9C28_80ED6F237907", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_76DDF0F2_30CB_4E50_89AC_71BDDDCC5E39</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_9FF72442_7123_4D2F_B115_DE078F7446BB</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_76DDF0F2_30CB_4E50_89AC_71BDDDCC5E39 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_76DDF0F2_30CB_4E50_89AC_71BDDDCC5E39", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_9FF72442_7123_4D2F_B115_DE078F7446BB = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_9FF72442_7123_4D2F_B115_DE078F7446BB", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_8D3E6E75_3C59_47DD_8027_DA5D1ACE1BD9</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_B67F3E14_768D_4158_B90B_B0B0D4373703</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_8D3E6E75_3C59_47DD_8027_DA5D1ACE1BD9 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_8D3E6E75_3C59_47DD_8027_DA5D1ACE1BD9", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_B67F3E14_768D_4158_B90B_B0B0D4373703 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_B67F3E14_768D_4158_B90B_B0B0D4373703", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_DD40F60C_D58A_42BA_9876_D3D014A37E8F</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_E3D3628D_46BD_4116_B861_1B5B079E419C</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_DD40F60C_D58A_42BA_9876_D3D014A37E8F = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_DD40F60C_D58A_42BA_9876_D3D014A37E8F", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_E3D3628D_46BD_4116_B861_1B5B079E419C = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_E3D3628D_46BD_4116_B861_1B5B079E419C", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 
 	/**
-	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_FFCD705A_7B0E_4657_B24E_1CF6917C33F3</code>
+	 * The sequence <code>PUBLIC.SYSTEM_SEQUENCE_ED26D3DD_C42C_4ABC_BC39_0A1F1E3E6B42</code>
 	 */
-	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_FFCD705A_7B0E_4657_B24E_1CF6917C33F3 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_FFCD705A_7B0E_4657_B24E_1CF6917C33F3", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
+	public static final org.jooq.Sequence<java.lang.Long> SYSTEM_SEQUENCE_ED26D3DD_C42C_4ABC_BC39_0A1F1E3E6B42 = new org.jooq.impl.SequenceImpl<java.lang.Long>("SYSTEM_SEQUENCE_ED26D3DD_C42C_4ABC_BC39_0A1F1E3E6B42", com.voodooloo.bsmart.generated.Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT);
 }

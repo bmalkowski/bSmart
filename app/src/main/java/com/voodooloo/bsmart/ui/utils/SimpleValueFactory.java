@@ -23,6 +23,6 @@ public class SimpleValueFactory<S, T> implements Callback<TableColumn.CellDataFe
     }
 
     public interface Lookup<S, T> {
-        public T get(S s);
+        T get(S s);
     }
 }

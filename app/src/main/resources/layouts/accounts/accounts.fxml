@@ -2,6 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SegmentedButton?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:id="root"
             fx:controller="com.voodooloo.bsmart.ui.accounts.AccountsController">
@@ -21,14 +22,13 @@
                   styleClass="h3"
                   GridPane.rowIndex="1"
                   GridPane.columnIndex="0"/>
-            <HBox
-                    GridPane.rowIndex="1"
-                    GridPane.columnIndex="1">
+            <HBox GridPane.rowIndex="1"
+                  GridPane.columnIndex="1">
                 <Region HBox.hgrow="ALWAYS"/>
                 <SegmentedButton>
                     <buttons>
-                        <ToggleButton text="Summary" fx:id="summaryButton" onAction="#onSummary"/>
-                        <ToggleButton text="Transactions" fx:id="transactionsButton" onAction="#onTransactions"/>
+                        <ToggleButton fx:id="summaryButton" text="Summary" onAction="#onSummary"/>
+                        <ToggleButton fx:id="transactionsButton" text="Transactions" onAction="#onTransactions"/>
                     </buttons>
                 </SegmentedButton>
             </HBox>

@@ -25,10 +25,6 @@ public class PortfolioFactory {
         dao = new PortfolioDAO(context, bus);
     }
 
-    public PortfolioController portfolioController(Portfolio portfolio) {
-        return new PortfolioController(dao, portfolio);
-    }
-
     public void showNewDialog() {
         Action saveAction = new DialogAction("Save", ButtonBar.ButtonType.OK_DONE);
         ValidationSupport validationSupport = new ValidationSupport();

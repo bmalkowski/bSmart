@@ -6,6 +6,7 @@ import com.voodooloo.bsmart.ui.accounts.AccountsController;
 import com.voodooloo.bsmart.ui.accounts.ListController;
 import com.voodooloo.bsmart.ui.accounts.SummaryController;
 import com.voodooloo.bsmart.ui.accounts.TransactionsController;
+import com.voodooloo.bsmart.ui.dialogs.AddTransactionDialog;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
 import com.voodooloo.bsmart.ui.portfolios.PortfolioFactory;
@@ -38,6 +39,8 @@ import javax.sql.DataSource;
 
         InvestmentsController.class,
 
+        AddTransactionDialog.class,
+
         PortfolioFactory.class,
         InvestmentFactory.class,
 })
@@ -63,7 +66,9 @@ public class AppModule {
 
     @Provides
     DSLContext provideDSLContext(DataSource dataSource) {
-        Configuration configuration = new DefaultConfiguration().set(dataSource).set(SQLDialect.H2);
+        Configuration configuration = new DefaultConfiguration()
+                .set(dataSource)
+                .set(SQLDialect.H2);
         return DSL.using(configuration);
     }
 

@@ -6,6 +6,7 @@ import com.voodooloo.bsmart.ui.accounts.AccountsController;
 import com.voodooloo.bsmart.ui.accounts.ListController;
 import com.voodooloo.bsmart.ui.accounts.SummaryController;
 import com.voodooloo.bsmart.ui.accounts.TransactionsController;
+import com.voodooloo.bsmart.ui.dialogs.AddAccountDialog;
 import com.voodooloo.bsmart.ui.dialogs.AddTransactionDialog;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
@@ -40,6 +41,7 @@ import javax.sql.DataSource;
         InvestmentsController.class,
 
         AddTransactionDialog.class,
+        AddAccountDialog.class,
 
         PortfolioFactory.class,
         InvestmentFactory.class,

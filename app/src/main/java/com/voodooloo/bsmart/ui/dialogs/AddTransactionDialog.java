@@ -47,7 +47,7 @@ public class AddTransactionDialog implements Controller {
         accountBox.setConverter(new SimpleStringConverter<>(account -> account.name));
         accountBox.setItems(FXCollections.observableArrayList(accountDAO.findAll()));
 
-        investmentBox.setConverter(new SimpleStringConverter<>(investment -> investment.name));
+        investmentBox.setConverter(new SimpleStringConverter<>(investment -> investment.name + " (" +  investment.symbol + ")"));
         investmentBox.setItems(FXCollections.observableArrayList(investmentDAO.findAll()));
         investmentBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             priceField.setText(newValue != null ? new Formatter().formatAsQuantity(newValue.price.getAmount()) : null);

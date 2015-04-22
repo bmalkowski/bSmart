@@ -16,6 +16,7 @@
     <VBox>
       <Text styleClass="h3" text="Options"/>
       <Button text="Add Transaction" onAction="#onAddTransaction"/>
+      <Button text="Add Account" onAction="#onAddAccount"/>
     </VBox>
   </right>
 </BorderPane>

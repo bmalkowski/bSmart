@@ -24,9 +24,12 @@ public class AccountDAO {
     }
 
     public void insert(Account account) {
-        context.insertInto(ACCOUNT)
-               .set(ACCOUNT.NAME, account.name)
-               .execute();
+        AccountRecord record = context.insertInto(ACCOUNT)
+                                      .set(ACCOUNT.NAME, account.name)
+                                      .set(ACCOUNT.FIRM_ID, account.firm.id)
+                                      .returning(ACCOUNT.ID)
+                                      .fetchOne();
+        bus.post(find(record.getId()));
     }
 
     public void add(Account account, Transaction transaction) {
@@ -48,13 +51,17 @@ public class AccountDAO {
 
         ArrayList<Account> accounts = new ArrayList<>();
         context.select()
-               .from(ACCOUNT.join(HOLDING).onKey())
+               .from(ACCOUNT.leftOuterJoin(HOLDING).onKey())
                .where(ACCOUNT.ID.equal(id))
                .fetchGroups(ACCOUNT)
                .forEach((accountRecord, records) -> {
                    ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
                    records.forEach(record -> {
                        HoldingRecord holdingRecord = record.into(HOLDING);
+                       if (holdingRecord.getId() == null) {
+                           return;
+                       }
+
                        Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
                        holdingBuilder.investment(investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID)));
                        holdings.add(holdingBuilder.build());
@@ -75,12 +82,16 @@ public class AccountDAO {
 
         ImmutableList.Builder<Account> accounts = ImmutableList.builder();
         context.select()
-               .from(ACCOUNT.join(HOLDING).onKey())
+               .from(ACCOUNT.leftOuterJoin(HOLDING).onKey())
                .fetchGroups(ACCOUNT)
                .forEach((accountRecord, records) -> {
                    ImmutableList.Builder<Holding> holdings = ImmutableList.builder();
                    records.forEach(record -> {
                        HoldingRecord holdingRecord = record.into(HOLDING);
+                       if (holdingRecord.getId() == null) {
+                           return;
+                       }
+
                        Holding.Builder holdingBuilder = holdingDAO.builderFrom(holdingRecord);
                        holdingBuilder.investment(investmentDAO.find(record.getValue(HOLDING.INVESTMENT_ID)));
                        holdings.add(holdingBuilder.build());

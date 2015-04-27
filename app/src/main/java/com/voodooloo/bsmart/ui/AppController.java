@@ -3,6 +3,7 @@ package com.voodooloo.bsmart.ui;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.voodooloo.bsmart.ui.dialogs.AddAccountDialog;
+import com.voodooloo.bsmart.ui.dialogs.AddInvestmentDialog;
 import com.voodooloo.bsmart.ui.dialogs.AddTransactionDialog;
 import com.voodooloo.bsmart.utils.BusController;
 import com.voodooloo.bsmart.utils.FXMLProvider;
@@ -45,6 +46,11 @@ public class AppController extends BusController {
 
     public void onAddAccount() {
         ViewController<Node, AddAccountDialog> viewController = fxmlProvider.load("dialogs/addAccount.fxml");
+        viewController.controller.show(viewController.transition(null));
+    }
+
+    public void onAddInvestment() {
+        ViewController<Node, AddInvestmentDialog> viewController = fxmlProvider.load("dialogs/addInvestment.fxml");
         viewController.controller.show(viewController.transition(null));
     }
 

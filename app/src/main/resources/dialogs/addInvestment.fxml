@@ -1,0 +1,23 @@
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.voodooloo.bsmart.ui.dialogs.AddInvestmentDialog">
+
+    <Text text="Symbol"
+          GridPane.rowIndex="0"
+          GridPane.columnIndex="0"/>
+    <TextField fx:id="symbolField"
+               GridPane.rowIndex="0"
+               GridPane.columnIndex="1"/>
+
+    <Text text="Type"
+          GridPane.rowIndex="1"
+          GridPane.columnIndex="0"/>
+    <ComboBox fx:id="typeBox"
+              GridPane.rowIndex="1"
+              GridPane.columnIndex="1"
+              promptText="Select"/>
+
+</GridPane>

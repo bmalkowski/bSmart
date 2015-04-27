@@ -1,6 +1,9 @@
 package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.eventbus.EventBus;
+import com.voodooloo.bsmart.generated.tables.MutualFund;
+import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
 import com.voodooloo.bsmart.generated.tables.records.CategoryRecord;
 import com.voodooloo.bsmart.generated.tables.records.InvestmentCategoryRecord;
 import com.voodooloo.bsmart.generated.tables.records.InvestmentRecord;
@@ -14,9 +17,20 @@ import static com.voodooloo.bsmart.generated.Tables.*;
 
 public class InvestmentDAO {
     final DSLContext context;
+    final EventBus bus;
 
-    public InvestmentDAO(DSLContext context) {
+    public InvestmentDAO(DSLContext context, EventBus bus) {
         this.context = context;
+        this.bus = bus;
+    }
+
+    public void insert(MutualFund fund) {
+        context.insertInto(INVESTMENT)
+               .set(INVESTMENT.SYMBOL, fund.symbol)
+               .set(INVESTMENT.NAME, fund.name)
+               .set(INVESTMENT.INVESTMENT_TYPE_ID, fund.name)
+               .execute();
+        bus.post();
     }
 
     public Investment find(Integer id) {
@@ -78,6 +92,14 @@ public class InvestmentDAO {
                    investments.add(builder.build());
                });
         return investments.build();
+    }
+
+    public ImmutableList<InvestmentType> findTypes() {
+        ImmutableList.Builder<InvestmentType> types = ImmutableList.builder();
+        context.selectFrom(INVESTMENT_TYPE).forEach(record -> types.add(new InvestmentType.Builder().id(record.getId())
+                                                                                                    .name(record.getName())
+                                                                                                    .build()));
+        return types.build();
     }
 
     public Investment.Builder builderFrom(InvestmentRecord record) {

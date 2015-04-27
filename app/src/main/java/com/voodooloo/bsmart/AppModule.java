@@ -7,12 +7,15 @@ import com.voodooloo.bsmart.ui.accounts.ListController;
 import com.voodooloo.bsmart.ui.accounts.SummaryController;
 import com.voodooloo.bsmart.ui.accounts.TransactionsController;
 import com.voodooloo.bsmart.ui.dialogs.AddAccountDialog;
+import com.voodooloo.bsmart.ui.dialogs.AddInvestmentDialog;
 import com.voodooloo.bsmart.ui.dialogs.AddTransactionDialog;
+import com.voodooloo.bsmart.ui.dialogs.ProgressDialog;
 import com.voodooloo.bsmart.ui.investments.InvestmentFactory;
 import com.voodooloo.bsmart.ui.investments.InvestmentsController;
 import com.voodooloo.bsmart.ui.portfolios.PortfolioFactory;
 import com.voodooloo.bsmart.ui.portfolios.PortfoliosController;
 import com.voodooloo.bsmart.utils.FXMLProvider;
+import com.voodooloo.bsmart.utils.ForegroundExecutor;
 import dagger.Module;
 import dagger.Provides;
 import org.h2.jdbcx.JdbcDataSource;
@@ -24,6 +27,7 @@ import org.jooq.impl.DefaultConfiguration;
 
 import javax.inject.Singleton;
 import javax.sql.DataSource;
+import java.util.concurrent.*;
 
 @Module(injects = {
         App.class,
@@ -40,8 +44,10 @@ import javax.sql.DataSource;
 
         InvestmentsController.class,
 
+        ProgressDialog.class,
         AddTransactionDialog.class,
         AddAccountDialog.class,
+        AddInvestmentDialog.class,
 
         PortfolioFactory.class,
         InvestmentFactory.class,
@@ -84,5 +90,12 @@ public class AppModule {
     @Provides
     FXMLProvider provideFXMLProvider(App app) {
         return new FXMLProvider(app.objectGraph);
+    }
+
+
+    @Singleton
+    @Provides
+    ForegroundExecutor provideForegroundExecutor(FXMLProvider provider) {
+        return new ForegroundExecutor(provider, 5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
     }
 }

@@ -1,0 +1,8 @@
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.voodooloo.bsmart.ui.dialogs.ProgressDialog">
+    <center>
+        <ProgressBar fx:id="progressBar"/>
+    </center>
+</BorderPane>

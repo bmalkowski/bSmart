@@ -4,7 +4,7 @@ CREATE TABLE investment_type (
     PRIMARY KEY (id)
 );
 
-INSERT INTO investment_type (name) VALUES ('Fund');
+INSERT INTO investment_type (name) VALUES ('Mutual Fund');
 
 CREATE TABLE investment (
     id INTEGER not null auto_increment,
@@ -29,6 +29,7 @@ CREATE TABLE category (
     PRIMARY KEY (id)
 );
 
+INSERT INTO category (name) VALUES ('Unknown');
 INSERT INTO category (name) VALUES ('US Stocks');
 INSERT INTO category (name) VALUES ('US Bonds');
 

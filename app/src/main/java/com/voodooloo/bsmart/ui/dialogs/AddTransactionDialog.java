@@ -39,7 +39,7 @@ public class AddTransactionDialog implements Controller {
     @Inject
     public AddTransactionDialog(DSLContext context, EventBus bus) {
         accountDAO = new AccountDAO(context, bus);
-        investmentDAO = new InvestmentDAO(context);
+        investmentDAO = new InvestmentDAO(context, bus);
     }
 
     @FXML

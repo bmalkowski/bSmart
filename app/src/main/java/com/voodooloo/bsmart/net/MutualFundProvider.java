@@ -1,6 +1,6 @@
 package com.voodooloo.bsmart.net;
 
-import com.voodooloo.bsmart.investments.Investment;
+import com.voodooloo.bsmart.investments.MutualFund;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.jsoup.Jsoup;
@@ -12,11 +12,12 @@ import java.util.Optional;
 
 public class MutualFundProvider {
     static final String NAME_URL = "http://quotes.morningstar.com/fund/f?ops=p&region=usa&culture=en-US&t=";
+    static final String N = "http://quotes.morningstar.com/fund/c-header?&t=XNAS:VFINX&region=usa&culture=en-US&version=RET&cur=";
     static final String HEADER_URL = "http://quotes.morningstar.com/fund/c-header?region=usa&culture=en-US&ops=p&cur=USD&t=";
     static final String PERF_URL = "http://quotes.morningstar.com/fund/c-performance?region=usa&culture=en-US&ops=p&cur=USD&t=";
 
-    public Optional<Investment> get(String symbol) {
-        Investment investment = null;
+    public Optional<MutualFund> get(String symbol) {
+        MutualFund fund = null;
         try {
             Document nameDocument = Jsoup.connect(NAME_URL + symbol).get();
             Document headerDocument = Jsoup.connect(HEADER_URL + symbol).get();
@@ -24,16 +25,17 @@ public class MutualFundProvider {
             String name = nameDocument.select(".reports_nav .r_title h1").text().trim();
             String nav = headerDocument.select("span[vkey=NAV]").text().trim();
 
-            Investment.Builder builder = new Investment.Builder();
-            investment = builder.symbol(symbol)
-                                .name(name)
-                                .price(BigMoney.of(CurrencyUnit.USD, new BigDecimal(nav)))
-                                .build();
-        } catch (Exception e) {
+            MutualFund.Builder builder = new MutualFund.Builder();
+            builder.symbol(symbol)
+                   .name(name)
+                   .price(BigMoney.of(CurrencyUnit.USD, new BigDecimal(nav)));
+            fund = builder.build();
+        }
+        catch (Exception e) {
             Logger.error(e);
         }
 
-        return Optional.ofNullable(investment);
+        return Optional.ofNullable(fund);
     }
 
 //    public Investment get(String symbol) {

@@ -10,7 +10,7 @@ public class Investment {
     public final BigMoney price;
     public final ImmutableList<PartialCategory> partialCategories;
 
-    private Investment(Builder builder) {
+    Investment(Builder builder) {
         id = builder.id;
         symbol = builder.symbol;
         name = builder.name;
@@ -18,7 +18,7 @@ public class Investment {
         partialCategories = builder.partialCategories;
     }
 
-    public static final class Builder {
+    public static class Builder {
         private String symbol;
         private String name;
         private BigMoney price;

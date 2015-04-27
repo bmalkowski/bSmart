@@ -2,20 +2,21 @@ package com.voodooloo.bsmart.investments;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.generated.tables.MutualFund;
-import com.voodooloo.bsmart.generated.tables.records.AccountRecord;
-import com.voodooloo.bsmart.generated.tables.records.CategoryRecord;
-import com.voodooloo.bsmart.generated.tables.records.InvestmentCategoryRecord;
-import com.voodooloo.bsmart.generated.tables.records.InvestmentRecord;
+import com.voodooloo.bsmart.generated.tables.records.*;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.jooq.DSLContext;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static com.voodooloo.bsmart.generated.Tables.*;
 
 public class InvestmentDAO {
+    public enum Event {
+        CHANGED
+    }
+
     final DSLContext context;
     final EventBus bus;
 
@@ -25,12 +26,19 @@ public class InvestmentDAO {
     }
 
     public void insert(MutualFund fund) {
-        context.insertInto(INVESTMENT)
-               .set(INVESTMENT.SYMBOL, fund.symbol)
-               .set(INVESTMENT.NAME, fund.name)
-               .set(INVESTMENT.INVESTMENT_TYPE_ID, fund.name)
+        InvestmentRecord record = context.insertInto(INVESTMENT)
+                                         .set(INVESTMENT.SYMBOL, fund.symbol)
+                                         .set(INVESTMENT.NAME, fund.name)
+                                         .set(INVESTMENT.INVESTMENT_TYPE_ID, 1)
+                                         .set(INVESTMENT.PRICE, fund.price.getAmount())
+                                         .returning(INVESTMENT.ID)
+                                         .fetchOne();
+        context.insertInto(INVESTMENT_CATEGORY)
+               .set(INVESTMENT_CATEGORY.INVESTMENT_ID, record.getId())
+               .set(INVESTMENT_CATEGORY.CATEGORY_ID, 1)
+               .set(INVESTMENT_CATEGORY.PERCENTAGE, BigDecimal.ONE)
                .execute();
-        bus.post();
+        bus.post(Event.CHANGED);
     }
 
     public Investment find(Integer id) {
@@ -51,8 +59,8 @@ public class InvestmentDAO {
 
                        InvestmentCategoryRecord investmentCategoryRecord = record.into(INVESTMENT_CATEGORY);
                        PartialCategory.Builder partialCategoryBuilder = new PartialCategory.Builder()
-                               .percentage(investmentCategoryRecord.getPercentage())
-                               .category(categoryBuilder.build());
+                           .percentage(investmentCategoryRecord.getPercentage())
+                           .category(categoryBuilder.build());
 
                        categories.add(partialCategoryBuilder.build());
                    });
@@ -81,8 +89,8 @@ public class InvestmentDAO {
 
                        InvestmentCategoryRecord investmentCategoryRecord = record.into(INVESTMENT_CATEGORY);
                        PartialCategory.Builder partialCategoryBuilder = new PartialCategory.Builder()
-                               .percentage(investmentCategoryRecord.getPercentage())
-                               .category(categoryBuilder.build());
+                           .percentage(investmentCategoryRecord.getPercentage())
+                           .category(categoryBuilder.build());
 
                        categories.add(partialCategoryBuilder.build());
                    });

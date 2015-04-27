@@ -1,9 +1,7 @@
 package com.voodooloo.bsmart.ui.dialogs;
 
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.investments.Investment;
-import com.voodooloo.bsmart.investments.InvestmentDAO;
-import com.voodooloo.bsmart.investments.InvestmentType;
+import com.voodooloo.bsmart.investments.*;
 import com.voodooloo.bsmart.net.MutualFundProvider;
 import com.voodooloo.bsmart.ui.utils.SimpleStringConverter;
 import com.voodooloo.bsmart.utils.Controller;
@@ -35,7 +33,7 @@ public class AddInvestmentDialog implements Controller {
     @Inject
     public AddInvestmentDialog(DSLContext context, EventBus bus, ForegroundExecutor foregroundExecutor, FXMLProvider fxmlProvider) {
         this.foregroundExecutor = foregroundExecutor;
-        investmentDAO = new InvestmentDAO(context);
+        investmentDAO = new InvestmentDAO(context, bus);
         this.fxmlProvider = fxmlProvider;
     }
 
@@ -69,11 +67,8 @@ public class AddInvestmentDialog implements Controller {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == saveButtonType) {
             foregroundExecutor.execute(() -> {
-                Optional<Investment> investmentOptional = new MutualFundProvider().get(symbolField.getText());
-                investmentOptional.ifPresent(investment1 -> {
-                    Logger.info("woo");
-                    investmentDAO.insert
-                });
+                Optional<MutualFund> optional = new MutualFundProvider().get(symbolField.getText());
+                optional.ifPresent(mutualFund -> investmentDAO.insert(mutualFund));
             });
         }
     }

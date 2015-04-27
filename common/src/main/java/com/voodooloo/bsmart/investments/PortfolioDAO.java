@@ -25,7 +25,7 @@ public class PortfolioDAO {
     }
 
     public ImmutableList<Portfolio> findAll() {
-        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        InvestmentDAO investmentDAO = new InvestmentDAO(context, bus);
         HoldingDAO holdingDAO = new HoldingDAO();
         AccountDAO accountDAO = new AccountDAO(context, bus);
 

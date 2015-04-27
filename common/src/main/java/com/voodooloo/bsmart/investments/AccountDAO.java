@@ -45,7 +45,7 @@ public class AccountDAO {
     }
 
     public Account find(Integer id) {
-        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        InvestmentDAO investmentDAO = new InvestmentDAO(context, bus);
         FirmDAO firmDAO = new FirmDAO(context);
         HoldingDAO holdingDAO = new HoldingDAO();
 
@@ -76,7 +76,7 @@ public class AccountDAO {
     }
 
     public ImmutableList<Account> findAll() {
-        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        InvestmentDAO investmentDAO = new InvestmentDAO(context, bus);
         FirmDAO firmDAO = new FirmDAO(context);
         HoldingDAO holdingDAO = new HoldingDAO();
 
@@ -106,7 +106,7 @@ public class AccountDAO {
     }
 
     public ImmutableList<Transaction> transactionsFor(Account account) {
-        InvestmentDAO investmentDAO = new InvestmentDAO(context);
+        InvestmentDAO investmentDAO = new InvestmentDAO(context, bus);
 
         ImmutableList.Builder<Transaction> transactions = ImmutableList.builder();
         context.select()

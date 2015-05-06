@@ -1,5 +1,7 @@
 package com.voodooloo.bsmart;
 
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvParser;
 import com.google.common.eventbus.EventBus;
 import com.voodooloo.bsmart.ui.AppController;
 import com.voodooloo.bsmart.ui.accounts.AccountsController;
@@ -18,6 +20,8 @@ import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ForegroundExecutor;
 import dagger.Module;
 import dagger.Provides;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.h2.jdbcx.JdbcDataSource;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
@@ -27,7 +31,8 @@ import org.jooq.impl.DefaultConfiguration;
 
 import javax.inject.Singleton;
 import javax.sql.DataSource;
-import java.util.concurrent.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 @Module(injects = {
         App.class,
@@ -97,5 +102,19 @@ public class AppModule {
     @Provides
     ForegroundExecutor provideForegroundExecutor(FXMLProvider provider) {
         return new ForegroundExecutor(provider, 5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+    }
+
+    @Singleton
+    @Provides
+    CloseableHttpClient provideCloseableHttpClient() {
+        return HttpClients.createDefault();
+    }
+
+    @Singleton
+    @Provides
+    CsvMapper provideCsvMapper() {
+        CsvMapper mapper = new CsvMapper();
+        mapper.enable(CsvParser.Feature.WRAP_AS_ARRAY);
+        return mapper;
     }
 }

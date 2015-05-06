@@ -1,12 +1,15 @@
 package com.voodooloo.bsmart.ui.dialogs;
 
 import com.google.common.eventbus.EventBus;
-import com.voodooloo.bsmart.investments.*;
+import com.voodooloo.bsmart.investments.InvestmentDAO;
+import com.voodooloo.bsmart.investments.InvestmentType;
+import com.voodooloo.bsmart.investments.MutualFund;
 import com.voodooloo.bsmart.net.MutualFundProvider;
 import com.voodooloo.bsmart.ui.utils.SimpleStringConverter;
 import com.voodooloo.bsmart.utils.Controller;
 import com.voodooloo.bsmart.utils.FXMLProvider;
 import com.voodooloo.bsmart.utils.ForegroundExecutor;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -17,7 +20,6 @@ import javafx.stage.StageStyle;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 import org.jooq.DSLContext;
-import org.pmw.tinylog.Logger;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -26,15 +28,18 @@ public class AddInvestmentDialog implements Controller {
     final InvestmentDAO investmentDAO;
     final ForegroundExecutor foregroundExecutor;
     final FXMLProvider fxmlProvider;
+    final MutualFundProvider mutualFundProvider;
 
     @FXML ComboBox<InvestmentType> typeBox;
     @FXML TextField symbolField;
 
     @Inject
-    public AddInvestmentDialog(DSLContext context, EventBus bus, ForegroundExecutor foregroundExecutor, FXMLProvider fxmlProvider) {
+    public AddInvestmentDialog(DSLContext context, EventBus bus, ForegroundExecutor foregroundExecutor, FXMLProvider fxmlProvider, MutualFundProvider mutualFundProvider) {
         this.foregroundExecutor = foregroundExecutor;
-        investmentDAO = new InvestmentDAO(context, bus);
         this.fxmlProvider = fxmlProvider;
+        this.mutualFundProvider = mutualFundProvider;
+
+        investmentDAO = new InvestmentDAO(context, bus);
     }
 
     @FXML
@@ -44,6 +49,10 @@ public class AddInvestmentDialog implements Controller {
     }
 
     public void show(Node view) {
+        show(view, null);
+    }
+
+    void show(Node view, String message) {
         ButtonType saveButtonType = new ButtonType("Save");
         ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
@@ -51,6 +60,7 @@ public class AddInvestmentDialog implements Controller {
         alert.initStyle(StageStyle.UTILITY);
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.setTitle("New Investment");
+        alert.setHeaderText(message);
         alert.getDialogPane().setContent(view);
         alert.getButtonTypes().setAll(saveButtonType, cancelButtonType);
         alert.getDialogPane().getScene().setFill(Color.DARKRED);
@@ -64,46 +74,15 @@ public class AddInvestmentDialog implements Controller {
             saveButton.setDisable(newValue);
         });
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == saveButtonType) {
-            foregroundExecutor.execute(() -> {
-                Optional<MutualFund> optional = new MutualFundProvider().get(symbolField.getText());
-                optional.ifPresent(mutualFund -> investmentDAO.insert(mutualFund));
-            });
-        }
+        alert.showAndWait()
+             .filter(result -> result == saveButtonType)
+             .ifPresent(result -> foregroundExecutor.execute(() -> {
+                 Optional<MutualFund> optional = mutualFundProvider.get(symbolField.getText());
+                 if (optional.isPresent()) {
+                     investmentDAO.insert(optional.get());
+                 } else {
+                     Platform.runLater(() -> show(view, "Couldn't find symbol"));
+                 }
+             }));
     }
-
-    /*
-    public void show(Node view) {
-        ValidationSupport validationSupport = new ValidationSupport();
-        validationSupport.registerValidator(symbolField, Validator.createEmptyValidator("Symbol is required"));
-        validationSupport.registerValidator(typeBox, Validator.createEmptyValidator("Type is required"));
-
-        Action saveAction = new DialogAction("Save", ButtonBar.ButtonType.OK_DONE);
-        validationSupport.invalidProperty().addListener((observable, oldValue, newValue) -> {
-            saveAction.setDisabled(newValue);
-        });
-        Dialogs.create().showWorkerProgress();
-        final Dialog dialog = new Dialog(null, "New Investment", false);
-        dialog.getStyleClass().add(Dialog.STYLE_CLASS_NATIVE);
-        dialog.setResizable(false);
-        dialog.setIconifiable(false);
-        dialog.setContent(view);
-        dialog.getActions().setAll(saveAction, Dialog.ACTION_CANCEL);
-
-        Action response = dialog.show();
-        if (response == saveAction) {
-            foregroundExecutor.execute(() -> {
-//                progress.start();
-                new MutualFundProvider().get(symbolField.getText());
-//                progress.end();
-            });
-//            switch (typeBox.getValue().)
-            //lookup
-            //insert
-            //take to an edit / details screen with categories?
-            //find... bleh
-//            investmentDAO.insert(typeBox.getValue(), symbolField.getText());
-        }
-    }*/
 }

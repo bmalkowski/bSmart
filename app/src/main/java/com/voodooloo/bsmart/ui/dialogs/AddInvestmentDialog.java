@@ -79,6 +79,7 @@ public class AddInvestmentDialog implements Controller {
              .ifPresent(result -> foregroundExecutor.execute(() -> {
                  Optional<MutualFund> optional = mutualFundProvider.get(symbolField.getText());
                  if (optional.isPresent()) {
+
                      investmentDAO.insert(optional.get());
                  } else {
                      Platform.runLater(() -> show(view, "Couldn't find symbol"));

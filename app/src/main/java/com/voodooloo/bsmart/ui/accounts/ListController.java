@@ -44,7 +44,7 @@ public class ListController extends BusController {
             if (newValue != null) {
                 ViewController<Node, AccountsController> viewController = fxmlProvider.load("layouts/accounts/accounts.fxml");
                 viewController.controller.updateAccount(newValue);
-                post(new AppController.Center(viewController));
+                post(new AppController.Focus(viewController));
             }
         });
 

@@ -44,7 +44,7 @@ public class PortfoliosController extends BusController {
       if (newValue != null) {
         ViewController<Node, SummaryController> viewController = fxmlProvider.load("layouts/portfolios/summary.fxml");
         viewController.controller.setPortfolio(newValue);
-        post(new AppController.Center(viewController));
+        post(new AppController.Focus(viewController));
       }
     });
 

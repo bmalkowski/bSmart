@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
+import org.controlsfx.control.StatusBar;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,7 @@ public class AppController extends BusController {
     @FXML BorderPane root;
     @FXML TitledPane portfoliosPane;
     @FXML TitledPane accountsPane;
+    @FXML StatusBar statusBar;
 
     ViewController<Node, ?> centerController;
 
@@ -55,17 +57,38 @@ public class AppController extends BusController {
     }
 
     @Subscribe
-    public void onEvent(Center center) {
-        root.setCenter(center.viewController.transition(centerController));
-        centerController = center.viewController;
+    public void onEvent(Focus focus) {
+        root.setCenter(focus.viewController.transition(centerController));
+        centerController = focus.viewController;
     }
 
-    public static class Center
+    @Subscribe
+    public void onEvent(Status status) {
+        statusBar.setText(status.text);
+    }
+
+    public static class Focus
     {
         public final ViewController<Node, ?> viewController;
 
-        public Center(ViewController<Node, ?> viewController) {
+        public Focus(ViewController<Node, ?> viewController) {
             this.viewController = viewController;
+        }
+    }
+
+    public static class Status
+    {
+        public enum Duration {
+            SHORT,
+            LONG,
+        }
+
+        public final String text;
+        public final Duration duration;
+
+        public Status(String text, Duration duration) {
+            this.text = text;
+            this.duration = duration;
         }
     }
 }
